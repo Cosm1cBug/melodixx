@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tagline">हर सुर महसूस करें</string>
+    <string name="haptic_feedback">हैप्टिक फ़ीडबैक</string>
+    <string name="haptic_feedback_desc">टैप, टॉगल और जेस्चर के लिए हल्की कंपन</string>
+    <string name="liquid_glass_nav">लिक्विड ग्लास नेविगेशन</string>
+    <string name="liquid_glass_nav_desc">धुंधली पारदर्शी नेविगेशन बार</string>
+    <string name="search_settings">सेटिंग्स खोजें</string>
+    <string name="recently_changed">हाल में बदले गए</string>
+    <string name="copy_theme_preset">थीम प्रीसेट कॉपी करें</string>
+    <string name="apply_theme_preset">थीम प्रीसेट लागू करें</string>
+    <string name="preset_applied">थीम प्रीसेट लागू हुई</string>
+    <string name="local_folders">संगीत फ़ोल्डर</string>
+    <string name="local_folders_desc">केवल चुने हुए फ़ोल्डर स्कैन करें। खाली = सभी फ़ोल्डर।</string>
+</resources>

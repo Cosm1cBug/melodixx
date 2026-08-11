@@ -1,0 +1,3 @@
+Melodix 0.1.0 — first release.
+Feel Every Note: Material 3 YouTube Music client with Spotify personalization,
+lossless option, synced lyrics, glass navigation, haptics and more.

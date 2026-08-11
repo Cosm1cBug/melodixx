@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tagline">Siente cada nota</string>
+    <string name="haptic_feedback">Respuesta háptica</string>
+    <string name="haptic_feedback_desc">Vibraciones sutiles en toques, interruptores y gestos</string>
+    <string name="liquid_glass_nav">Navegación de cristal líquido</string>
+    <string name="liquid_glass_nav_desc">Barra de navegación translúcida con desenfoque</string>
+    <string name="search_settings">Buscar en ajustes</string>
+    <string name="recently_changed">Cambiado recientemente</string>
+    <string name="copy_theme_preset">Copiar preajuste de tema</string>
+    <string name="apply_theme_preset">Aplicar preajuste de tema</string>
+    <string name="preset_applied">Preajuste de tema aplicado</string>
+    <string name="local_folders">Carpetas de música</string>
+    <string name="local_folders_desc">Escanear solo las carpetas seleccionadas. Vacío = todas.</string>
+</resources>

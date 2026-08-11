@@ -1,0 +1,1284 @@
+# Melodix — Complete Project Structure
+
+Auto-generated + curated. Every tracked file (1201) and its role.
+
+Modules: `app` (UI+engine) · `ytm` (YouTube client) · `spotify` · lyrics providers `kugou/lrclib/betterlyrics/paxsenix` · `lastfm` · `shazamkit` · `kizzy` (Discord RPC).
+
+## Project root — identity, legal, docs, build entry (23 files)
+
+- `AGENTS.md` — Rules for AI-agent contributors (branching, commits, testing, string-file policy).
+- `BUILDING.md` — How to build locally and via CI; troubleshooting (keystore, protoc, SDK).
+- `CONTRIBUTING.md` — Contribution workflow & code style for Melodix.
+- `Dockerfile` — Container image for headless Android builds.
+- `GITHUB-REPO.md` — GitHub repo setup: description, topics, secrets, CI behavior.
+- `LICENSE` — GNU GPL v3 full text.
+- `NOTICE.md` — GPL-3.0 provenance & attribution (upstream lineage, libraries, fonts). Legal doc — ships with source.
+- `README.md` — Project landing doc: what Melodix is, features, design, build pointers, license.
+- `SMOKE-TEST.md` — First-run QA checklist for a fresh APK.
+- `build.gradle.kts` — Root build script: plugin aliases, shared Kotlin compiler options.
+- `crowdin.yml` — Crowdin translation sync config.
+- `development_guide.md` — Dev-environment setup guide (JDK, protoc, keystore, docker).
+- `docker-compose.yml` — Compose service wrapping the Docker build env (MELODIX_* env passthrough).
+- `docker-entrypoint.sh` — Entry script for the Docker build env.
+- `gradle/libs.versions.toml` — Version catalog — every dependency & plugin version in one file.
+- `gradle/wrapper/gradle-wrapper.jar` — Gradle wrapper gradle-wrapper.jar.
+- `gradle/wrapper/gradle-wrapper.properties` — Gradle wrapper gradle-wrapper.properties.
+- `gradlew` — Gradle wrapper launcher (unix).
+- `gradlew.bat` — Gradle wrapper launcher (windows).
+- `lint.xml` — Android lint rule config (what to ignore/warn).
+- `local.properties.sample` — Sample machine-local SDK/keys file (never committed).
+- `renovate.json` — Renovate dependency-bot config.
+- `settings.gradle.kts` — Module graph: :app plus API modules; repositories.
+
+## CI & community (.github) (13 files)
+
+- `.github/ISSUE_TEMPLATE/bug_report.yml` — GitHub community config: bug_report.yml.
+- `.github/ISSUE_TEMPLATE/config.yml` — GitHub community config: config.yml.
+- `.github/ISSUE_TEMPLATE/feature_request.yml` — GitHub community config: feature_request.yml.
+- `.github/actions/setup-protobuf/action.yml` — GitHub community config: action.yml.
+- `.github/pull_request_template.md` — GitHub community config: pull_request_template.md.
+- `.github/scripts/check_spotify_hashes.py` — GitHub community config: check_spotify_hashes.py.
+- `.github/scripts/parse_changelog.sh` — GitHub community config: parse_changelog.sh.
+- `.github/workflows/build.yml` — CI workflow: build.yml.
+- `.github/workflows/build_pr.yml` — CI workflow: build_pr.yml.
+- `.github/workflows/build_quick.yml` — CI workflow: build_quick.yml.
+- `.github/workflows/pr_title_prefix.yml` — CI workflow: pr_title_prefix.yml.
+- `.github/workflows/release.yml` — CI workflow: release.yml.
+- `.github/workflows/spotify-hash-check.yml` — CI workflow: spotify-hash-check.yml.
+
+## App module — build files & manifest (91 files)
+
+- `app/.gitignore` — Project file: .gitignore.
+- `app/build.gradle.kts` — App build config: flavors foss/gms/izzy, signing, app_name resValue, MELODIX_* env overrides, Room schema out dir.
+- `app/generate_proto.sh` — Project file: generate_proto.sh.
+- `app/lint.xml` — XML resource/config: lint.xml.
+- `app/persistent-debug.keystore` — Project file: persistent-debug.keystore.
+- `app/proguard-rules.pro` — R8 keep-rules for release minification.
+- `app/schemas/com.melodix.music.db.InternalDatabase/1.json` — Room schema snapshot v1 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/10.json` — Room schema snapshot v10 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/11.json` — Room schema snapshot v11 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/12.json` — Room schema snapshot v12 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/13.json` — Room schema snapshot v13 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/14.json` — Room schema snapshot v14 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/15.json` — Room schema snapshot v15 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/16.json` — Room schema snapshot v16 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/17.json` — Room schema snapshot v17 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/18.json` — Room schema snapshot v18 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/19.json` — Room schema snapshot v19 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/2.json` — Room schema snapshot v2 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/20.json` — Room schema snapshot v20 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/21.json` — Room schema snapshot v21 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/22.json` — Room schema snapshot v22 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/23.json` — Room schema snapshot v23 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/24.json` — Room schema snapshot v24 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/25.json` — Room schema snapshot v25 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/26.json` — Room schema snapshot v26 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/27.json` — Room schema snapshot v27 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/28.json` — Room schema snapshot v28 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/29.json` — Room schema snapshot v29 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/3.json` — Room schema snapshot v3 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/30.json` — Room schema snapshot v30 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/31.json` — Room schema snapshot v31 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/32.json` — Room schema snapshot v32 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/33.json` — Room schema snapshot v33 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/34.json` — Room schema snapshot v34 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/35.json` — Room schema snapshot v35 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/36.json` — Room schema snapshot v36 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/37.json` — Room schema snapshot v37 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/38.json` — Room schema snapshot v38 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/39.json` — Room schema snapshot v39 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/4.json` — Room schema snapshot v4 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/5.json` — Room schema snapshot v5 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/6.json` — Room schema snapshot v6 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/7.json` — Room schema snapshot v7 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/8.json` — Room schema snapshot v8 (migration history; keep immutable).
+- `app/schemas/com.melodix.music.db.InternalDatabase/9.json` — Room schema snapshot v9 (migration history; keep immutable).
+- `app/src/debug/res/xml/shortcuts.xml` — System XML config: shortcuts.xml (widget info, shortcuts, backup rules, paths).
+- `app/src/main/AndroidManifest.xml` — All components: activities, MusicService, widgets, QS tile, receivers, intent filters, permissions.
+- `app/src/main/assets/po_token.html` — Project file: po_token.html.
+- `app/src/main/assets/solver/astring.js` — Project file: astring.js.
+- `app/src/main/assets/solver/meriyah.js` — Project file: meriyah.js.
+- `app/src/main/assets/solver/yt.solver.core.js` — Project file: yt.solver.core.js.
+- `app/src/main/ic_launcher-playstore.png` — Project file: ic_launcher-playstore.png.
+- `app/src/main/java/com/melodix/music/listentogether/proto/ApproveJoinPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/ApproveSuggestionPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/BufferCompletePayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/BufferReadyPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/BufferWaitPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/ClientCapabilitiesKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/CreateRoomPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/EnvelopeKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/ErrorPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/HostChangedPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/JoinApprovedPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/JoinRejectedPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/JoinRequestPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/JoinRoomPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/KickUserPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/KickedPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/Listentogether.java` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/ListentogetherKt.proto.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/PlaybackActionPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/ReconnectPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/ReconnectedPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/RejectJoinPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/RejectSuggestionPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/RoomCreatedPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/RoomStateKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/ServerCapabilitiesKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/SuggestTrackPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/SuggestionApprovedPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/SuggestionReceivedPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/SuggestionRejectedPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/SyncStatePayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/TrackInfoKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/TransferHostPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/UserDisconnectedPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/UserInfoKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/UserJoinedPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/UserLeftPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/java/com/melodix/music/listentogether/proto/UserReconnectedPayloadKt.kt` — Generated protobuf (Listen Together wire format) — regenerated by app/generate_proto.sh; don't hand-edit.
+- `app/src/main/proto/listentogether.proto` — Project file: listentogether.proto.
+
+## App — core (App/MainActivity/theme/constants) (19 files)
+
+- `app/src/main/kotlin/com/melodix/music/App.kt` — @HiltAndroidApp: DI bootstrap, crash handler, app-wide init.
+- `app/src/main/kotlin/com/melodix/music/MainActivity.kt` — Root activity: nav host, theming, haptic gate (LocalHapticFeedback), CompositionLocal providers, deep links.
+- `app/src/main/kotlin/com/melodix/music/constants/Dimensions.kt` — Design tokens: ThumbnailCornerRadius (16dp), PlayerHorizontalPadding (24dp)…
+- `app/src/main/kotlin/com/melodix/music/constants/HistorySource.kt` — Kotlin source: HistorySource.kt.
+- `app/src/main/kotlin/com/melodix/music/constants/LibraryFilter.kt` — Kotlin source: LibraryFilter.kt.
+- `app/src/main/kotlin/com/melodix/music/constants/MediaSessionConstants.kt` — Kotlin source: MediaSessionConstants.kt.
+- `app/src/main/kotlin/com/melodix/music/constants/PreferenceKeys.kt` — Every DataStore preference key + enums (theme, sliders, haptics, integrations…).
+- `app/src/main/kotlin/com/melodix/music/constants/StatPeriod.kt` — Kotlin source: StatPeriod.kt.
+- `app/src/main/kotlin/com/melodix/music/di/AppModule.kt` — Hilt DI module: AppModule.
+- `app/src/main/kotlin/com/melodix/music/di/LyricsHelperEntryPoint.kt` — Hilt DI module: LyricsHelperEntryPoint.
+- `app/src/main/kotlin/com/melodix/music/di/NetworkModule.kt` — Hilt DI module: NetworkModule.
+- `app/src/main/kotlin/com/melodix/music/di/Qualifiers.kt` — Hilt DI module: Qualifiers.
+- `app/src/main/kotlin/com/melodix/music/di/WrappedModule.kt` — Hilt DI module: WrappedModule.
+- `app/src/main/kotlin/com/melodix/music/ui/theme/Font.kt` — Kotlin source: Font.kt.
+- `app/src/main/kotlin/com/melodix/music/ui/theme/PlayerColorExtractor.kt` — Extracts gradient/palette colors from album art for player theming.
+- `app/src/main/kotlin/com/melodix/music/ui/theme/PlayerSliderColors.kt` — Derives slider colors from artwork/theme.
+- `app/src/main/kotlin/com/melodix/music/ui/theme/Theme.kt` — MelodixTheme: dynamic/seed color scheme, pure-black mode, seed #7C4DFF.
+- `app/src/main/kotlin/com/melodix/music/ui/theme/Type.kt` — M3 type scale on system font (system-font policy).
+- `app/src/main/kotlin/com/melodix/music/ui/theme/bbh_bartle.kt` — bbh_bartle FontFamily (upstream font used only by Wrapped screen).
+
+## App — playback engine (31 files)
+
+- `app/src/foss/kotlin/com/melodix/music/playback/CastConnectionHandler.kt` — FOSS-flavor source: CastConnectionHandler.
+- `app/src/gms/kotlin/com/melodix/music/playback/CastConnectionHandler.kt` — GMS-flavor source (Google Cast): CastConnectionHandler.
+- `app/src/izzy/kotlin/com/melodix/music/playback/CastConnectionHandler.kt` — IzzyOnDroid-flavor source: CastConnectionHandler.
+- `app/src/main/kotlin/com/melodix/music/playback/DownloadUtil.kt` — Download orchestration helper (Hilt-injected).
+- `app/src/main/kotlin/com/melodix/music/playback/ExoDownloadService.kt` — Media3 download service for offline songs.
+- `app/src/main/kotlin/com/melodix/music/playback/MediaLibrarySessionCallback.kt` — MediaSession browsing tree for Android Auto / external controllers.
+- `app/src/main/kotlin/com/melodix/music/playback/MusicService.kt` — Media3 MediaLibraryService: playback engine, cache, scrobbling, Discord RPC, crossfade.
+- `app/src/main/kotlin/com/melodix/music/playback/PlayerConnection.kt` — UI-facing wrapper exposing player state as Compose flows.
+- `app/src/main/kotlin/com/melodix/music/playback/SleepTimer.kt` — Sleep timer with fade & scheduling.
+- `app/src/main/kotlin/com/melodix/music/playback/SponsorBlockManager.kt` — Fetches/applies SponsorBlock segment skips.
+- `app/src/main/kotlin/com/melodix/music/playback/SpotifyMetadataRegistry.kt` — Caches Spotify metadata (ISRC etc.) per track.
+- `app/src/main/kotlin/com/melodix/music/playback/SpotifyProfileCache.kt` — 3-tier Spotify profile cache (GraphQL→REST→DB).
+- `app/src/main/kotlin/com/melodix/music/playback/SpotifyRecommendationEngine.kt` — Weighted-score queue builder from Spotify taste profile.
+- `app/src/main/kotlin/com/melodix/music/playback/SpotifyYouTubeMapper.kt` — Fuzzy Spotify→YouTube matching + persistent overrides.
+- `app/src/main/kotlin/com/melodix/music/playback/alarm/MusicAlarmReceiver.kt` — Scheduled-playback alarm: MusicAlarmReceiver.
+- `app/src/main/kotlin/com/melodix/music/playback/alarm/MusicAlarmRescheduleReceiver.kt` — Scheduled-playback alarm: MusicAlarmRescheduleReceiver.
+- `app/src/main/kotlin/com/melodix/music/playback/alarm/MusicAlarmScheduler.kt` — Scheduled-playback alarm: MusicAlarmScheduler.
+- `app/src/main/kotlin/com/melodix/music/playback/alarm/MusicAlarmStore.kt` — Scheduled-playback alarm: MusicAlarmStore.
+- `app/src/main/kotlin/com/melodix/music/playback/audio/SilenceDetectorAudioProcessor.kt` — Audio processing (normalization/fade): SilenceDetectorAudioProcessor.
+- `app/src/main/kotlin/com/melodix/music/playback/queues/EmptyQueue.kt` — Queue source implementations: EmptyQueue.
+- `app/src/main/kotlin/com/melodix/music/playback/queues/ListQueue.kt` — Queue source implementations: ListQueue.
+- `app/src/main/kotlin/com/melodix/music/playback/queues/LocalAlbumRadio.kt` — Queue source implementations: LocalAlbumRadio.
+- `app/src/main/kotlin/com/melodix/music/playback/queues/Queue.kt` — Queue source implementations: Queue.
+- `app/src/main/kotlin/com/melodix/music/playback/queues/SpotifyLikedSongsQueue.kt` — Queue source implementations: SpotifyLikedSongsQueue.
+- `app/src/main/kotlin/com/melodix/music/playback/queues/SpotifyPagedQueue.kt` — Queue source implementations: SpotifyPagedQueue.
+- `app/src/main/kotlin/com/melodix/music/playback/queues/SpotifyPlaylistQueue.kt` — Queue source implementations: SpotifyPlaylistQueue.
+- `app/src/main/kotlin/com/melodix/music/playback/queues/SpotifyQueue.kt` — Queue source implementations: SpotifyQueue.
+- `app/src/main/kotlin/com/melodix/music/playback/queues/YouTubeAlbumRadio.kt` — Queue source implementations: YouTubeAlbumRadio.
+- `app/src/main/kotlin/com/melodix/music/playback/queues/YouTubePlaylistQueue.kt` — Queue source implementations: YouTubePlaylistQueue.
+- `app/src/main/kotlin/com/melodix/music/playback/queues/YouTubeQueue.kt` — Queue source implementations: YouTubeQueue.
+- `app/src/test/kotlin/com/melodix/music/playback/SleepTimerFadeTest.kt` — Unit test: SleepTimerFadeTest.kt.
+
+## App — database (37 files)
+
+- `app/src/main/kotlin/com/melodix/music/db/Converters.kt` — Room type converters.
+- `app/src/main/kotlin/com/melodix/music/db/DatabaseDao.kt` — All DAO queries (library, history, playlists, lyrics, spotify maps).
+- `app/src/main/kotlin/com/melodix/music/db/MusicDatabase.kt` — Room database definition + migrations.
+- `app/src/main/kotlin/com/melodix/music/db/daos/SpeedDialDao.kt` — Room DAO: SpeedDialDao.
+- `app/src/main/kotlin/com/melodix/music/db/entities/Album.kt` — Room entity: Album.
+- `app/src/main/kotlin/com/melodix/music/db/entities/AlbumArtistMap.kt` — Room entity: AlbumArtistMap.
+- `app/src/main/kotlin/com/melodix/music/db/entities/AlbumEntity.kt` — Room entity: AlbumEntity.
+- `app/src/main/kotlin/com/melodix/music/db/entities/AlbumWithSongs.kt` — Room entity: AlbumWithSongs.
+- `app/src/main/kotlin/com/melodix/music/db/entities/Artist.kt` — Room entity: Artist.
+- `app/src/main/kotlin/com/melodix/music/db/entities/ArtistEntity.kt` — Room entity: ArtistEntity.
+- `app/src/main/kotlin/com/melodix/music/db/entities/Event.kt` — Room entity: Event.
+- `app/src/main/kotlin/com/melodix/music/db/entities/EventWithSong.kt` — Room entity: EventWithSong.
+- `app/src/main/kotlin/com/melodix/music/db/entities/FormatEntity.kt` — Room entity: FormatEntity.
+- `app/src/main/kotlin/com/melodix/music/db/entities/LocalItem.kt` — Room entity: LocalItem.
+- `app/src/main/kotlin/com/melodix/music/db/entities/LyricsEntity.kt` — Room entity: LyricsEntity.
+- `app/src/main/kotlin/com/melodix/music/db/entities/PlayCountEntity.kt` — Room entity: PlayCountEntity.
+- `app/src/main/kotlin/com/melodix/music/db/entities/Playlist.kt` — Room entity: Playlist.
+- `app/src/main/kotlin/com/melodix/music/db/entities/PlaylistEntity.kt` — Room entity: PlaylistEntity.
+- `app/src/main/kotlin/com/melodix/music/db/entities/PlaylistSong.kt` — Room entity: PlaylistSong.
+- `app/src/main/kotlin/com/melodix/music/db/entities/PlaylistSongMap.kt` — Room entity: PlaylistSongMap.
+- `app/src/main/kotlin/com/melodix/music/db/entities/PlaylistSongMapPreview.kt` — Room entity: PlaylistSongMapPreview.
+- `app/src/main/kotlin/com/melodix/music/db/entities/PodcastEntity.kt` — Room entity: PodcastEntity.
+- `app/src/main/kotlin/com/melodix/music/db/entities/QobuzMatchEntity.kt` — Room entity: QobuzMatchEntity.
+- `app/src/main/kotlin/com/melodix/music/db/entities/RecognitionHistory.kt` — Room entity: RecognitionHistory.
+- `app/src/main/kotlin/com/melodix/music/db/entities/RelatedSongMap.kt` — Room entity: RelatedSongMap.
+- `app/src/main/kotlin/com/melodix/music/db/entities/SearchHistory.kt` — Room entity: SearchHistory.
+- `app/src/main/kotlin/com/melodix/music/db/entities/SetVideoIdEntity.kt` — Room entity: SetVideoIdEntity.
+- `app/src/main/kotlin/com/melodix/music/db/entities/Song.kt` — Room entity: Song.
+- `app/src/main/kotlin/com/melodix/music/db/entities/SongAlbumMap.kt` — Room entity: SongAlbumMap.
+- `app/src/main/kotlin/com/melodix/music/db/entities/SongArtistMap.kt` — Room entity: SongArtistMap.
+- `app/src/main/kotlin/com/melodix/music/db/entities/SongEntity.kt` — Room entity: SongEntity.
+- `app/src/main/kotlin/com/melodix/music/db/entities/SongWithStats.kt` — Room entity: SongWithStats.
+- `app/src/main/kotlin/com/melodix/music/db/entities/SortedSongAlbumMap.kt` — Room entity: SortedSongAlbumMap.
+- `app/src/main/kotlin/com/melodix/music/db/entities/SortedSongArtistMap.kt` — Room entity: SortedSongArtistMap.
+- `app/src/main/kotlin/com/melodix/music/db/entities/SpeedDialItem.kt` — Room entity: SpeedDialItem.
+- `app/src/main/kotlin/com/melodix/music/db/entities/SpotifyMatchEntity.kt` — Room entity: SpotifyMatchEntity.
+- `app/src/test/kotlin/com/melodix/music/db/DatabaseMigrationLadderTest.kt` — Unit test: DatabaseMigrationLadderTest.kt.
+
+## App — lyrics / recognition / listen-together / qobuz / eq (41 files)
+
+- `app/src/main/kotlin/com/melodix/music/api/DeepLService.kt` — AI-translation HTTP services: DeepLService.
+- `app/src/main/kotlin/com/melodix/music/api/MistralService.kt` — AI-translation HTTP services: MistralService.
+- `app/src/main/kotlin/com/melodix/music/api/OpenRouterService.kt` — AI-translation HTTP services: OpenRouterService.
+- `app/src/main/kotlin/com/melodix/music/api/OpenRouterStreamingService.kt` — AI-translation HTTP services: OpenRouterStreamingService.
+- `app/src/main/kotlin/com/melodix/music/eq/EqualizerService.kt` — Equalizer subsystem: EqualizerService.
+- `app/src/main/kotlin/com/melodix/music/eq/audio/BiquadFilter.kt` — Equalizer subsystem: BiquadFilter.
+- `app/src/main/kotlin/com/melodix/music/eq/audio/CustomEqualizerAudioProcessor.kt` — Equalizer subsystem: CustomEqualizerAudioProcessor.
+- `app/src/main/kotlin/com/melodix/music/eq/data/EQProfileRepository.kt` — Equalizer subsystem: EQProfileRepository.
+- `app/src/main/kotlin/com/melodix/music/eq/data/FilterType.kt` — Equalizer subsystem: FilterType.
+- `app/src/main/kotlin/com/melodix/music/eq/data/ParametricEQ.kt` — Equalizer subsystem: ParametricEQ.
+- `app/src/main/kotlin/com/melodix/music/eq/data/ParametricEQParser.kt` — Equalizer subsystem: ParametricEQParser.
+- `app/src/main/kotlin/com/melodix/music/listentogether/ListenTogetherActionReceiver.kt` — Listen Together client: ListenTogetherActionReceiver.
+- `app/src/main/kotlin/com/melodix/music/listentogether/ListenTogetherClient.kt` — Listen Together client: ListenTogetherClient.
+- `app/src/main/kotlin/com/melodix/music/listentogether/ListenTogetherManager.kt` — Listen Together client: ListenTogetherManager.
+- `app/src/main/kotlin/com/melodix/music/listentogether/ListenTogetherServers.kt` — Listen Together client: ListenTogetherServers.
+- `app/src/main/kotlin/com/melodix/music/listentogether/MessageCodec.kt` — Listen Together client: MessageCodec.
+- `app/src/main/kotlin/com/melodix/music/listentogether/Protocol.kt` — Listen Together client: Protocol.
+- `app/src/main/kotlin/com/melodix/music/lyrics/BetterLyricsProvider.kt` — Lyrics subsystem: BetterLyricsProvider.
+- `app/src/main/kotlin/com/melodix/music/lyrics/KuGouLyricsProvider.kt` — Lyrics subsystem: KuGouLyricsProvider.
+- `app/src/main/kotlin/com/melodix/music/lyrics/LrcLibLyricsProvider.kt` — Lyrics subsystem: LrcLibLyricsProvider.
+- `app/src/main/kotlin/com/melodix/music/lyrics/LyricsEntry.kt` — Lyrics subsystem: LyricsEntry.
+- `app/src/main/kotlin/com/melodix/music/lyrics/LyricsHelper.kt` — Lyrics subsystem: LyricsHelper.
+- `app/src/main/kotlin/com/melodix/music/lyrics/LyricsPlusProvider.kt` — Lyrics subsystem: LyricsPlusProvider.
+- `app/src/main/kotlin/com/melodix/music/lyrics/LyricsProvider.kt` — Lyrics subsystem: LyricsProvider.
+- `app/src/main/kotlin/com/melodix/music/lyrics/LyricsProviderRegistry.kt` — Lyrics subsystem: LyricsProviderRegistry.
+- `app/src/main/kotlin/com/melodix/music/lyrics/LyricsTranslationHelper.kt` — Lyrics subsystem: LyricsTranslationHelper.
+- `app/src/main/kotlin/com/melodix/music/lyrics/LyricsUtils.kt` — Lyrics subsystem: LyricsUtils.
+- `app/src/main/kotlin/com/melodix/music/lyrics/PaxsenixLyricsProvider.kt` — Lyrics subsystem: PaxsenixLyricsProvider.
+- `app/src/main/kotlin/com/melodix/music/lyrics/YouTubeLyricsProvider.kt` — Lyrics subsystem: YouTubeLyricsProvider.
+- `app/src/main/kotlin/com/melodix/music/lyrics/YouTubeSubtitleLyricsProvider.kt` — Lyrics subsystem: YouTubeSubtitleLyricsProvider.
+- `app/src/main/kotlin/com/melodix/music/qobuz/QobuzAudioProvider.kt` — Qobuz lossless resolver client: QobuzAudioProvider.
+- `app/src/main/kotlin/com/melodix/music/qobuz/QobuzBackendHealthChecker.kt` — Qobuz lossless resolver client: QobuzBackendHealthChecker.
+- `app/src/main/kotlin/com/melodix/music/qobuz/QobuzMatchOverride.kt` — Qobuz lossless resolver client: QobuzMatchOverride.
+- `app/src/main/kotlin/com/melodix/music/recognition/AudioResampler.kt` — Music recognition: AudioResampler.
+- `app/src/main/kotlin/com/melodix/music/recognition/MusicRecognitionService.kt` — Music recognition: MusicRecognitionService.
+- `app/src/main/kotlin/com/melodix/music/recognition/RecognitionForegroundService.kt` — Music recognition: RecognitionForegroundService.
+- `app/src/main/kotlin/com/melodix/music/recognition/RecognitionLaunchActivity.kt` — Music recognition: RecognitionLaunchActivity.
+- `app/src/main/kotlin/com/melodix/music/recognition/ShazamSignatureGenerator.kt` — Music recognition: ShazamSignatureGenerator.
+- `app/src/main/kotlin/com/melodix/music/recognition/VibraSignature.kt` — Music recognition: VibraSignature.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/recognition/RecognitionHistoryScreen.kt` — Screen composable: RecognitionHistoryScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/recognition/RecognitionScreen.kt` — Screen composable: RecognitionScreen.
+
+## App — UI screens (93 files)
+
+- `app/src/main/kotlin/com/melodix/music/ui/screens/AccountScreen.kt` — Screen composable: AccountScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/AlbumScreen.kt` — Screen composable: AlbumScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/BrowseScreen.kt` — Screen composable: BrowseScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/ChartsScreen.kt` — Screen composable: ChartsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/CrashActivity.kt` — Screen composable: CrashActivity.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/ExploreScreen.kt` — Screen composable: ExploreScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/HistoryScreen.kt` — Screen composable: HistoryScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/HomeScreen.kt` — Screen composable: HomeScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/ListenTogetherScreen.kt` — Screen composable: ListenTogetherScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/LoginScreen.kt` — Screen composable: LoginScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/MoodAndGenresScreen.kt` — Screen composable: MoodAndGenresScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/NavigationBuilder.kt` — Screen composable: NavigationBuilder.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/NewReleaseScreen.kt` — Screen composable: NewReleaseScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/Screens.kt` — Screen composable: Screens.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/SpotifyLoginScreen.kt` — Screen composable: SpotifyLoginScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/StatsScreen.kt` — Screen composable: StatsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/YouTubeBrowseScreen.kt` — Screen composable: YouTubeBrowseScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/album/SpotifyAlbumScreen.kt` — Screen composable: SpotifyAlbumScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/artist/ArtistAlbumsScreen.kt` — Screen composable: ArtistAlbumsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/artist/ArtistItemsScreen.kt` — Screen composable: ArtistItemsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/artist/ArtistScreen.kt` — Screen composable: ArtistScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/artist/ArtistSongsScreen.kt` — Screen composable: ArtistSongsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/equalizer/EQState.kt` — Screen composable: EQState.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/equalizer/EQViewModel.kt` — Screen composable: EQViewModel.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/equalizer/EqScreen.kt` — Screen composable: EqScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/library/LibraryAlbumsScreen.kt` — Screen composable: LibraryAlbumsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/library/LibraryArtistsScreen.kt` — Screen composable: LibraryArtistsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/library/LibraryMixScreen.kt` — Screen composable: LibraryMixScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/library/LibraryPlaylistsScreen.kt` — Screen composable: LibraryPlaylistsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/library/LibraryPodcastsScreen.kt` — Screen composable: LibraryPodcastsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/library/LibraryScreen.kt` — Screen composable: LibraryScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/library/LibrarySongsScreen.kt` — Screen composable: LibrarySongsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/library/SpotifyFolderScreen.kt` — Screen composable: SpotifyFolderScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/library/local/LocalFilesScreen.kt` — Screen composable: LocalFilesScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/playlist/AutoPlaylistScreen.kt` — Screen composable: AutoPlaylistScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/playlist/CachePlaylistScreen.kt` — Screen composable: CachePlaylistScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/playlist/LocalPlaylistScreen.kt` — Screen composable: LocalPlaylistScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/playlist/OnlinePlaylistScreen.kt` — Screen composable: OnlinePlaylistScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/playlist/SpotifyLikedSongsScreen.kt` — Screen composable: SpotifyLikedSongsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/playlist/SpotifyPlaylistScreen.kt` — Screen composable: SpotifyPlaylistScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/playlist/TopPlaylistScreen.kt` — Screen composable: TopPlaylistScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/podcast/OnlinePodcastScreen.kt` — Screen composable: OnlinePodcastScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/search/LocalSearchScreen.kt` — Screen composable: LocalSearchScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/search/OnlineSearchResult.kt` — Screen composable: OnlineSearchResult.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/search/OnlineSearchScreen.kt` — Screen composable: OnlineSearchScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/search/SearchScreen.kt` — Screen composable: SearchScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/AboutScreen.kt` — Screen composable: AboutScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/AccountSettings.kt` — Screen composable: AccountSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/AiSettings.kt` — Screen composable: AiSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/AlarmSettings.kt` — Screen composable: AlarmSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/AndroidAutoSettings.kt` — Screen composable: AndroidAutoSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/AppearanceSettings.kt` — Screen composable: AppearanceSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/BackupAndRestore.kt` — Screen composable: BackupAndRestore.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/ChangelogScreen.kt` — Screen composable: ChangelogScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/ContentSettings.kt` — Screen composable: ContentSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/DiscordLoginScreen.kt` — Screen composable: DiscordLoginScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/PlayerSettings.kt` — Screen composable: PlayerSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/PrivacySettings.kt` — Screen composable: PrivacySettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/RomanizationSettings.kt` — Screen composable: RomanizationSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/SettingsScreen.kt` — Screen composable: SettingsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/SponsorBlockSettings.kt` — Screen composable: SponsorBlockSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/StorageSettings.kt` — Screen composable: StorageSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/ThemeScreen.kt` — Screen composable: ThemeScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/UpdaterSettings.kt` — Screen composable: UpdaterSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/integrations/DiscordSettings.kt` — Screen composable: DiscordSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/integrations/IntegrationScreen.kt` — Screen composable: IntegrationScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/integrations/LastFMSettings.kt` — Screen composable: LastFMSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/integrations/ListenTogetherSettings.kt` — Screen composable: ListenTogetherSettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/integrations/SpotifyPreloadScreen.kt` — Screen composable: SpotifyPreloadScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/settings/integrations/SpotifySettings.kt` — Screen composable: SpotifySettings.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/WrappedAudioService.kt` — Screen composable: WrappedAudioService.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/WrappedConstants.kt` — Screen composable: WrappedConstants.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/WrappedData.kt` — Screen composable: WrappedData.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/WrappedEntryPoint.kt` — Screen composable: WrappedEntryPoint.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/WrappedManager.kt` — Screen composable: WrappedManager.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/WrappedScreen.kt` — Screen composable: WrappedScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/WrappedState.kt` — Screen composable: WrappedState.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/WrappedViewModel.kt` — Screen composable: WrappedViewModel.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/components/AnimatedBackground.kt` — Screen composable: AnimatedBackground.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/components/AnimatedDecorativeElement.kt` — Screen composable: AnimatedDecorativeElement.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/components/AutoResizingText.kt` — Screen composable: AutoResizingText.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/pages/AlbumPages.kt` — Screen composable: AlbumPages.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/pages/ConclusionPage.kt` — Screen composable: ConclusionPage.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/pages/PlaylistPage.kt` — Screen composable: PlaylistPage.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/pages/WrappedIntro.kt` — Screen composable: WrappedIntro.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/pages/WrappedMinutesScreen.kt` — Screen composable: WrappedMinutesScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/pages/WrappedMinutesTease.kt` — Screen composable: WrappedMinutesTease.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/pages/WrappedTop5ArtistsScreen.kt` — Screen composable: WrappedTop5ArtistsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/pages/WrappedTop5SongsScreen.kt` — Screen composable: WrappedTop5SongsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/pages/WrappedTopArtistScreen.kt` — Screen composable: WrappedTopArtistScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/pages/WrappedTopSongScreen.kt` — Screen composable: WrappedTopSongScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/pages/WrappedTotalArtistsScreen.kt` — Screen composable: WrappedTotalArtistsScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/screens/wrapped/pages/WrappedTotalSongsScreen.kt` — Screen composable: WrappedTotalSongsScreen.
+
+## App — UI player (now-playing kept from Meld) (6 files)
+
+- `app/src/main/kotlin/com/melodix/music/ui/player/MiniPlayer.kt` — Collapsed player bar (pure-black default).
+- `app/src/main/kotlin/com/melodix/music/ui/player/PlaybackError.kt` — Playback error UI surface.
+- `app/src/main/kotlin/com/melodix/music/ui/player/Player.kt` — NOW-PLAYING screen — kept from Meld by design (blur/wavy/1b tokens).
+- `app/src/main/kotlin/com/melodix/music/ui/player/Queue.kt` — Queue bottom sheet with reorder/suggestions.
+- `app/src/main/kotlin/com/melodix/music/ui/player/Thumbnail.kt` — Large artwork, swipe gestures, lyric overlay host.
+- `app/src/main/kotlin/com/melodix/music/ui/player/ThumbnailSnapUtils.kt` — Swipe-snap animation helpers.
+
+## App — UI components & menus (95 files)
+
+- `app/src/foss/kotlin/com/melodix/music/ui/component/CastButton.kt` — Reusable composable component: CastButton.
+- `app/src/gms/kotlin/com/melodix/music/ui/component/CastButton.kt` — Reusable composable component: CastButton.
+- `app/src/gms/kotlin/com/melodix/music/ui/component/CastPickerSheet.kt` — Reusable composable component: CastPickerSheet.
+- `app/src/izzy/kotlin/com/melodix/music/ui/component/CastButton.kt` — Reusable composable component: CastButton.
+- `app/src/main/kotlin/com/melodix/music/ui/component/AppNavigation.kt` — Reusable composable component: AppNavigation.
+- `app/src/main/kotlin/com/melodix/music/ui/component/AutoResizeText.kt` — Reusable composable component: AutoResizeText.
+- `app/src/main/kotlin/com/melodix/music/ui/component/BigSeekBar.kt` — Reusable composable component: BigSeekBar.
+- `app/src/main/kotlin/com/melodix/music/ui/component/BottomSheet.kt` — Reusable composable component: BottomSheet.
+- `app/src/main/kotlin/com/melodix/music/ui/component/BottomSheetMenu.kt` — Reusable composable component: BottomSheetMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/component/BottomSheetPage.kt` — Reusable composable component: BottomSheetPage.
+- `app/src/main/kotlin/com/melodix/music/ui/component/ChipsRow.kt` — Reusable composable component: ChipsRow.
+- `app/src/main/kotlin/com/melodix/music/ui/component/CreatePlaylistDialog.kt` — Reusable composable component: CreatePlaylistDialog.
+- `app/src/main/kotlin/com/melodix/music/ui/component/Dialog.kt` — Reusable composable component: Dialog.
+- `app/src/main/kotlin/com/melodix/music/ui/component/DraggableLyricsProviderList.kt` — Reusable composable component: DraggableLyricsProviderList.
+- `app/src/main/kotlin/com/melodix/music/ui/component/DraggableScrollBarOverlay.kt` — Reusable composable component: DraggableScrollBarOverlay.
+- `app/src/main/kotlin/com/melodix/music/ui/component/EmptyPlaceholder.kt` — Reusable composable component: EmptyPlaceholder.
+- `app/src/main/kotlin/com/melodix/music/ui/component/EnumDialog.kt` — Reusable composable component: EnumDialog.
+- `app/src/main/kotlin/com/melodix/music/ui/component/ExpandableText.kt` — Reusable composable component: ExpandableText.
+- `app/src/main/kotlin/com/melodix/music/ui/component/ExperimentalLyrics.kt` — Reusable composable component: ExperimentalLyrics.
+- `app/src/main/kotlin/com/melodix/music/ui/component/GridMenu.kt` — Reusable composable component: GridMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/component/HideOnScrollFAB.kt` — Reusable composable component: HideOnScrollFAB.
+- `app/src/main/kotlin/com/melodix/music/ui/component/IconButton.kt` — Reusable composable component: IconButton.
+- `app/src/main/kotlin/com/melodix/music/ui/component/IntegrationCard.kt` — Reusable composable component: IntegrationCard.
+- `app/src/main/kotlin/com/melodix/music/ui/component/Items.kt` — Reusable composable component: Items.
+- `app/src/main/kotlin/com/melodix/music/ui/component/Library.kt` — Reusable composable component: Library.
+- `app/src/main/kotlin/com/melodix/music/ui/component/LibrarySearchHeader.kt` — Reusable composable component: LibrarySearchHeader.
+- `app/src/main/kotlin/com/melodix/music/ui/component/Lyrics.kt` — Reusable composable component: Lyrics.
+- `app/src/main/kotlin/com/melodix/music/ui/component/LyricsBackgroundStyle.kt` — Reusable composable component: LyricsBackgroundStyle.
+- `app/src/main/kotlin/com/melodix/music/ui/component/LyricsCommon.kt` — Reusable composable component: LyricsCommon.
+- `app/src/main/kotlin/com/melodix/music/ui/component/LyricsComponents.kt` — Reusable composable component: LyricsComponents.
+- `app/src/main/kotlin/com/melodix/music/ui/component/LyricsImageCard.kt` — Reusable composable component: LyricsImageCard.
+- `app/src/main/kotlin/com/melodix/music/ui/component/LyricsLine.kt` — Reusable composable component: LyricsLine.
+- `app/src/main/kotlin/com/melodix/music/ui/component/Material3SettingsGroup.kt` — Reusable composable component: Material3SettingsGroup.
+- `app/src/main/kotlin/com/melodix/music/ui/component/Menu.kt` — Reusable composable component: Menu.
+- `app/src/main/kotlin/com/melodix/music/ui/component/NavigationTile.kt` — Reusable composable component: NavigationTile.
+- `app/src/main/kotlin/com/melodix/music/ui/component/NavigationTitle.kt` — Reusable composable component: NavigationTitle.
+- `app/src/main/kotlin/com/melodix/music/ui/component/NewMenuComponents.kt` — Reusable composable component: NewMenuComponents.
+- `app/src/main/kotlin/com/melodix/music/ui/component/OriginalLyrics.kt` — Reusable composable component: OriginalLyrics.
+- `app/src/main/kotlin/com/melodix/music/ui/component/PlayerSlider.kt` — Reusable composable component: PlayerSlider.
+- `app/src/main/kotlin/com/melodix/music/ui/component/PlayingIndicator.kt` — Reusable composable component: PlayingIndicator.
+- `app/src/main/kotlin/com/melodix/music/ui/component/Preference.kt` — Reusable composable component: Preference.
+- `app/src/main/kotlin/com/melodix/music/ui/component/RandomizeGridItem.kt` — Reusable composable component: RandomizeGridItem.
+- `app/src/main/kotlin/com/melodix/music/ui/component/ReleaseNotesCard.kt` — Reusable composable component: ReleaseNotesCard.
+- `app/src/main/kotlin/com/melodix/music/ui/component/SearchBar.kt` — Reusable composable component: SearchBar.
+- `app/src/main/kotlin/com/melodix/music/ui/component/SettingsSleepTimerDialog.kt` — Reusable composable component: SettingsSleepTimerDialog.
+- `app/src/main/kotlin/com/melodix/music/ui/component/SongDropdownSelect.kt` — Reusable composable component: SongDropdownSelect.
+- `app/src/main/kotlin/com/melodix/music/ui/component/SortHeader.kt` — Reusable composable component: SortHeader.
+- `app/src/main/kotlin/com/melodix/music/ui/component/SpeedDialGridItem.kt` — Reusable composable component: SpeedDialGridItem.
+- `app/src/main/kotlin/com/melodix/music/ui/component/SpotifyFolderListItem.kt` — Reusable composable component: SpotifyFolderListItem.
+- `app/src/main/kotlin/com/melodix/music/ui/component/SpotifyHomeSectionRow.kt` — Reusable composable component: SpotifyHomeSectionRow.
+- `app/src/main/kotlin/com/melodix/music/ui/component/SquigglySlider.kt` — Reusable composable component: SquigglySlider.
+- `app/src/main/kotlin/com/melodix/music/ui/component/TimeTransfer.kt` — Reusable composable component: TimeTransfer.
+- `app/src/main/kotlin/com/melodix/music/ui/component/VolumeSlider.kt` — Reusable composable component: VolumeSlider.
+- `app/src/main/kotlin/com/melodix/music/ui/component/WavySlider.kt` — Reusable composable component: WavySlider.
+- `app/src/main/kotlin/com/melodix/music/ui/component/YouTubeMatchDialog.kt` — Reusable composable component: YouTubeMatchDialog.
+- `app/src/main/kotlin/com/melodix/music/ui/component/shimmer/ButtonPlaceholder.kt` — Reusable composable component: ButtonPlaceholder.
+- `app/src/main/kotlin/com/melodix/music/ui/component/shimmer/GridItemPlaceholder.kt` — Reusable composable component: GridItemPlaceholder.
+- `app/src/main/kotlin/com/melodix/music/ui/component/shimmer/ListItemPlaceholder.kt` — Reusable composable component: ListItemPlaceholder.
+- `app/src/main/kotlin/com/melodix/music/ui/component/shimmer/ShimmerHost.kt` — Reusable composable component: ShimmerHost.
+- `app/src/main/kotlin/com/melodix/music/ui/component/shimmer/TextPlaceholder.kt` — Reusable composable component: TextPlaceholder.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/AddToPlaylistDialog.kt` — Context/bottom menus for AddToPlaylistDialog.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/AddToPlaylistDialogOnline.kt` — Context/bottom menus for AddToPlaylistDialogOnline.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/AlbumMenu.kt` — Context/bottom menus for AlbumMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/ArtistMenu.kt` — Context/bottom menus for ArtistMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/CsvColumnMappingDialog.kt` — Context/bottom menus for CsvColumnMappingDialog.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/CustomThumbnailMenu.kt` — Context/bottom menus for CustomThumbnailMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/ImportPlaylistDialog.kt` — Context/bottom menus for ImportPlaylistDialog.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/LoadingScreen.kt` — Context/bottom menus for LoadingScreen.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/LyricsMenu.kt` — Context/bottom menus for LyricsMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/PlayerMenu.kt` — Context/bottom menus for PlayerMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/PlaylistMenu.kt` — Context/bottom menus for PlaylistMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/PlaylistScreenMenus.kt` — Context/bottom menus for PlaylistScreenMenus.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/QueueMenu.kt` — Context/bottom menus for QueueMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/SelectionSongsMenu.kt` — Context/bottom menus for SelectionSongsMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/SongMenu.kt` — Context/bottom menus for SongMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/SpotifyPlaylistPickerDialog.kt` — Context/bottom menus for SpotifyPlaylistPickerDialog.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/SpotifyPlaylistPinMenu.kt` — Context/bottom menus for SpotifyPlaylistPinMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/SpotifyTrackMenu.kt` — Context/bottom menus for SpotifyTrackMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/YouTubeAlbumMenu.kt` — Context/bottom menus for YouTubeAlbumMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/YouTubeArtistMenu.kt` — Context/bottom menus for YouTubeArtistMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/YouTubePlaylistMenu.kt` — Context/bottom menus for YouTubePlaylistMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/YouTubeSelectionSongMenu.kt` — Context/bottom menus for YouTubeSelectionSongMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/menu/YouTubeSongMenu.kt` — Context/bottom menus for YouTubeSongMenu.
+- `app/src/main/kotlin/com/melodix/music/ui/utils/AppBar.kt` — UI helper: AppBar.
+- `app/src/main/kotlin/com/melodix/music/ui/utils/FadingEdge.kt` — UI helper: FadingEdge.
+- `app/src/main/kotlin/com/melodix/music/ui/utils/ItemWrapper.kt` — UI helper: ItemWrapper.
+- `app/src/main/kotlin/com/melodix/music/ui/utils/KeyUtils.kt` — UI helper: KeyUtils.
+- `app/src/main/kotlin/com/melodix/music/ui/utils/LazyGridSnapLayoutInfoProvider.kt` — UI helper: LazyGridSnapLayoutInfoProvider.
+- `app/src/main/kotlin/com/melodix/music/ui/utils/NavControllerUtils.kt` — UI helper: NavControllerUtils.
+- `app/src/main/kotlin/com/melodix/music/ui/utils/ScrollUtils.kt` — UI helper: ScrollUtils.
+- `app/src/main/kotlin/com/melodix/music/ui/utils/ShapeUtils.kt` — UI helper: ShapeUtils.
+- `app/src/main/kotlin/com/melodix/music/ui/utils/ShowMediaInfo.kt` — UI helper: ShowMediaInfo.
+- `app/src/main/kotlin/com/melodix/music/ui/utils/ShowOffsetDialog.kt` — UI helper: ShowOffsetDialog.
+- `app/src/main/kotlin/com/melodix/music/ui/utils/StringUtils.kt` — UI helper: StringUtils.
+- `app/src/main/kotlin/com/melodix/music/ui/utils/YouTubeUtils.kt` — UI helper: YouTubeUtils.
+
+## App — viewmodels (37 files)
+
+- `app/src/main/kotlin/com/melodix/music/viewmodels/AccountSettingsViewModel.kt` — ViewModel: state & data for AccountSettings.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/AccountViewModel.kt` — ViewModel: state & data for Account.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/AlbumViewModel.kt` — ViewModel: state & data for Album.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/ArtistAlbumsViewModel.kt` — ViewModel: state & data for ArtistAlbums.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/ArtistItemsViewModel.kt` — ViewModel: state & data for ArtistItems.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/ArtistViewModel.kt` — ViewModel: state & data for Artist.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/AutoPlaylistViewModel.kt` — ViewModel: state & data for AutoPlaylist.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/BackupRestoreViewModel.kt` — ViewModel: state & data for BackupRestore.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/BrowseViewModel.kt` — ViewModel: state & data for Browse.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/CachePlaylistViewModel.kt` — ViewModel: state & data for CachePlaylist.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/ChartsViewModel.kt` — ViewModel: state & data for Charts.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/ExploreViewModel.kt` — ViewModel: state & data for Explore.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/HistoryViewModel.kt` — ViewModel: state & data for History.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/HomeViewModel.kt` — ViewModel: state & data for Home.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/LibraryViewModels.kt` — ViewModel: state & data for Librarys.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/ListenTogetherViewModel.kt` — ViewModel: state & data for ListenTogether.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/LocalFilesViewModel.kt` — ViewModel: state & data for LocalFiles.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/LocalPlaylistViewModel.kt` — ViewModel: state & data for LocalPlaylist.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/LocalSearchViewModel.kt` — ViewModel: state & data for LocalSearch.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/LyricsMenuViewModel.kt` — ViewModel: state & data for LyricsMenu.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/LyricsViewModel.kt` — ViewModel: state & data for Lyrics.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/MoodAndGenresViewModel.kt` — ViewModel: state & data for MoodAndGenres.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/NewReleaseViewModel.kt` — ViewModel: state & data for NewRelease.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/OnlinePlaylistViewModel.kt` — ViewModel: state & data for OnlinePlaylist.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/OnlinePodcastViewModel.kt` — ViewModel: state & data for OnlinePodcast.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/OnlineSearchSuggestionViewModel.kt` — ViewModel: state & data for OnlineSearchSuggestion.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/OnlineSearchViewModel.kt` — ViewModel: state & data for OnlineSearch.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/PlaylistsViewModel.kt` — ViewModel: state & data for Playlists.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/SpotifyAlbumViewModel.kt` — ViewModel: state & data for SpotifyAlbum.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/SpotifyLikedSongsViewModel.kt` — ViewModel: state & data for SpotifyLikedSongs.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/SpotifyPlaylistViewModel.kt` — ViewModel: state & data for SpotifyPlaylist.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/SpotifyPreloadViewModel.kt` — ViewModel: state & data for SpotifyPreload.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/SpotifyViewModel.kt` — ViewModel: state & data for Spotify.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/StatsViewModel.kt` — ViewModel: state & data for Stats.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/ThemeViewModel.kt` — ViewModel: state & data for Theme.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/TopPlaylistViewModel.kt` — ViewModel: state & data for TopPlaylist.
+- `app/src/main/kotlin/com/melodix/music/viewmodels/YouTubeBrowseViewModel.kt` — ViewModel: state & data for YouTubeBrowse.
+
+## App — utils & extensions & models (147 files)
+
+- `app/src/main/kotlin/com/melodix/music/extensions/ContextExt.kt` — Kotlin extension helpers: ContextExt.
+- `app/src/main/kotlin/com/melodix/music/extensions/CoroutineExt.kt` — Kotlin extension helpers: CoroutineExt.
+- `app/src/main/kotlin/com/melodix/music/extensions/FileExt.kt` — Kotlin extension helpers: FileExt.
+- `app/src/main/kotlin/com/melodix/music/extensions/ListExt.kt` — Kotlin extension helpers: ListExt.
+- `app/src/main/kotlin/com/melodix/music/extensions/MediaItemExt.kt` — Kotlin extension helpers: MediaItemExt.
+- `app/src/main/kotlin/com/melodix/music/extensions/PlayerExt.kt` — Kotlin extension helpers: PlayerExt.
+- `app/src/main/kotlin/com/melodix/music/extensions/QueueExt.kt` — Kotlin extension helpers: QueueExt.
+- `app/src/main/kotlin/com/melodix/music/extensions/StringExt.kt` — Kotlin extension helpers: StringExt.
+- `app/src/main/kotlin/com/melodix/music/extensions/UtilExt.kt` — Kotlin extension helpers: UtilExt.
+- `app/src/main/kotlin/com/melodix/music/models/ItemsPage.kt` — Data model: ItemsPage.
+- `app/src/main/kotlin/com/melodix/music/models/MediaMetadata.kt` — Data model: MediaMetadata.
+- `app/src/main/kotlin/com/melodix/music/models/NewReleaseItem.kt` — Data model: NewReleaseItem.
+- `app/src/main/kotlin/com/melodix/music/models/PersistPlayerState.kt` — Data model: PersistPlayerState.
+- `app/src/main/kotlin/com/melodix/music/models/PersistQueue.kt` — Data model: PersistQueue.
+- `app/src/main/kotlin/com/melodix/music/models/SimilarRecommendation.kt` — Data model: SimilarRecommendation.
+- `app/src/main/kotlin/com/melodix/music/models/SpotifyHomeSection.kt` — Data model: SpotifyHomeSection.
+- `app/src/main/kotlin/com/melodix/music/utils/AnrWatchdog.kt` — Utility: AnrWatchdog.
+- `app/src/main/kotlin/com/melodix/music/utils/CoilBitmapLoader.kt` — Utility: CoilBitmapLoader.
+- `app/src/main/kotlin/com/melodix/music/utils/ComposeDebugUtils.kt` — Utility: ComposeDebugUtils.
+- `app/src/main/kotlin/com/melodix/music/utils/ComposeToImage.kt` — Utility: ComposeToImage.
+- `app/src/main/kotlin/com/melodix/music/utils/CrashHandler.kt` — Utility: CrashHandler.
+- `app/src/main/kotlin/com/melodix/music/utils/CrashReporter.kt` — Utility: CrashReporter.
+- `app/src/main/kotlin/com/melodix/music/utils/DataStore.kt` — Utility: DataStore.
+- `app/src/main/kotlin/com/melodix/music/utils/DiscordRPC.kt` — Utility: DiscordRPC.
+- `app/src/main/kotlin/com/melodix/music/utils/HapticUtils.kt` — Haptic feedback engine (ported from OpenTune): version-safe vibration types + rememberHaptic().
+- `app/src/main/kotlin/com/melodix/music/utils/IconUtils.kt` — Utility: IconUtils.
+- `app/src/main/kotlin/com/melodix/music/utils/NetworkConnectivityObserver.kt` — Utility: NetworkConnectivityObserver.
+- `app/src/main/kotlin/com/melodix/music/utils/NetworkUtils.kt` — Utility: NetworkUtils.
+- `app/src/main/kotlin/com/melodix/music/utils/PlaylistExporter.kt` — Utility: PlaylistExporter.
+- `app/src/main/kotlin/com/melodix/music/utils/PodcastRefreshTrigger.kt` — Utility: PodcastRefreshTrigger.
+- `app/src/main/kotlin/com/melodix/music/utils/ScrobbleManager.kt` — Utility: ScrobbleManager.
+- `app/src/main/kotlin/com/melodix/music/utils/SpotifyHashSync.kt` — Downloads Melodix's GQL hash registry at runtime; updates SpotifyHashProvider.
+- `app/src/main/kotlin/com/melodix/music/utils/SpotifyItemConverter.kt` — Utility: SpotifyItemConverter.
+- `app/src/main/kotlin/com/melodix/music/utils/SpotifyTokenManager.kt` — Utility: SpotifyTokenManager.
+- `app/src/main/kotlin/com/melodix/music/utils/StringUtils.kt` — Utility: StringUtils.
+- `app/src/main/kotlin/com/melodix/music/utils/SuperProperties.kt` — Utility: SuperProperties.
+- `app/src/main/kotlin/com/melodix/music/utils/SyncUtils.kt` — Utility: SyncUtils.
+- `app/src/main/kotlin/com/melodix/music/utils/Updater.kt` — Utility: Updater.
+- `app/src/main/kotlin/com/melodix/music/utils/Utils.kt` — Utility: Utils.
+- `app/src/main/kotlin/com/melodix/music/utils/YTPlayerUtils.kt` — Utility: YTPlayerUtils.
+- `app/src/main/kotlin/com/melodix/music/utils/cipher/CipherDeobfuscator.kt` — Utility: CipherDeobfuscator.
+- `app/src/main/kotlin/com/melodix/music/utils/cipher/CipherWebView.kt` — Utility: CipherWebView.
+- `app/src/main/kotlin/com/melodix/music/utils/cipher/FunctionNameExtractor.kt` — Utility: FunctionNameExtractor.
+- `app/src/main/kotlin/com/melodix/music/utils/cipher/PlayerJsFetcher.kt` — Utility: PlayerJsFetcher.
+- `app/src/main/kotlin/com/melodix/music/utils/potoken/JavaScriptUtil.kt` — Utility: JavaScriptUtil.
+- `app/src/main/kotlin/com/melodix/music/utils/potoken/PoTokenException.kt` — Utility: PoTokenException.
+- `app/src/main/kotlin/com/melodix/music/utils/potoken/PoTokenGenerator.kt` — Utility: PoTokenGenerator.
+- `app/src/main/kotlin/com/melodix/music/utils/potoken/PoTokenResult.kt` — Utility: PoTokenResult.
+- `app/src/main/kotlin/com/melodix/music/utils/potoken/PoTokenWebView.kt` — Utility: PoTokenWebView.
+- `app/src/main/kotlin/com/melodix/music/utils/sabr/EjsNTransformSolver.kt` — Utility: EjsNTransformSolver.
+- `app/src/main/kotlin/com/melodix/music/utils/sabr/SabrException.kt` — Utility: SabrException.
+- `app/src/test/kotlin/com/melodix/music/extensions/ListExtTest.kt` — Kotlin extension helpers: ListExtTest.
+- `app/src/test/kotlin/com/melodix/music/extensions/PlayerRepeatModeTest.kt` — Kotlin extension helpers: PlayerRepeatModeTest.
+- `app/src/test/kotlin/com/melodix/music/extensions/StringExtTest.kt` — Kotlin extension helpers: StringExtTest.
+- `app/src/test/kotlin/com/melodix/music/utils/ScrobbleManagerTest.kt` — Utility: ScrobbleManagerTest.
+- `betterlyrics/src/main/kotlin/com/melodix/music/betterlyrics/models/Track.kt` — Data model: Track.
+- `kugou/src/main/kotlin/com/melodix/kugou/models/DownloadLyricsResponse.kt` — Data model: DownloadLyricsResponse.
+- `kugou/src/main/kotlin/com/melodix/kugou/models/Keyword.kt` — Data model: Keyword.
+- `kugou/src/main/kotlin/com/melodix/kugou/models/SearchLyricsResponse.kt` — Data model: SearchLyricsResponse.
+- `kugou/src/main/kotlin/com/melodix/kugou/models/SearchSongResponse.kt` — Data model: SearchSongResponse.
+- `lastfm/src/main/kotlin/com/melodix/lastfm/models/Authentication.kt` — Data model: Authentication.
+- `lrclib/src/main/kotlin/com/melodix/lrclib/models/Track.kt` — Data model: Track.
+- `paxsenix/src/main/kotlin/com/melodix/paxsenix/models/PaxsenixModels.kt` — Data model: PaxsenixModels.
+- `shazamkit/src/main/kotlin/com/melodix/shazamkit/models/ShazamModels.kt` — Data model: ShazamModels.
+- `spotify/src/main/kotlin/com/melodix/spotify/models/SpotifyAlbum.kt` — Data model: SpotifyAlbum.
+- `spotify/src/main/kotlin/com/melodix/spotify/models/SpotifyArtist.kt` — Data model: SpotifyArtist.
+- `spotify/src/main/kotlin/com/melodix/spotify/models/SpotifyHomeFeed.kt` — Data model: SpotifyHomeFeed.
+- `spotify/src/main/kotlin/com/melodix/spotify/models/SpotifyLibraryItem.kt` — Data model: SpotifyLibraryItem.
+- `spotify/src/main/kotlin/com/melodix/spotify/models/SpotifyPaging.kt` — Data model: SpotifyPaging.
+- `spotify/src/main/kotlin/com/melodix/spotify/models/SpotifyPlaylist.kt` — Data model: SpotifyPlaylist.
+- `spotify/src/main/kotlin/com/melodix/spotify/models/SpotifySearchResult.kt` — Data model: SpotifySearchResult.
+- `spotify/src/main/kotlin/com/melodix/spotify/models/SpotifyToken.kt` — Data model: SpotifyToken.
+- `spotify/src/main/kotlin/com/melodix/spotify/models/SpotifyTrack.kt` — Data model: SpotifyTrack.
+- `spotify/src/main/kotlin/com/melodix/spotify/models/SpotifyUser.kt` — Data model: SpotifyUser.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/AccountInfo.kt` — Data model: AccountInfo.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/AutomixPreviewVideoRenderer.kt` — Data model: AutomixPreviewVideoRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/Badges.kt` — Data model: Badges.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/Button.kt` — Data model: Button.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/Context.kt` — Data model: Context.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/Continuation.kt` — Data model: Continuation.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/ContinuationItemRenderer.kt` — Data model: ContinuationItemRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/Endpoint.kt` — Data model: Endpoint.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/GridRenderer.kt` — Data model: GridRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/Icon.kt` — Data model: Icon.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MediaInfo.kt` — Data model: MediaInfo.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/Menu.kt` — Data model: Menu.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MusicCardShelfRenderer.kt` — Data model: MusicCardShelfRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MusicCarouselShelfRenderer.kt` — Data model: MusicCarouselShelfRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MusicDescriptionShelfRenderer.kt` — Data model: MusicDescriptionShelfRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MusicEditablePlaylistDetailHeaderRenderer.kt` — Data model: MusicEditablePlaylistDetailHeaderRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MusicMultiRowImageItemRenderer.kt` — Data model: MusicMultiRowImageItemRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MusicMultiRowListItemRenderer.kt` — Data model: MusicMultiRowListItemRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MusicNavigationButtonRenderer.kt` — Data model: MusicNavigationButtonRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MusicPlaylistShelfRenderer.kt` — Data model: MusicPlaylistShelfRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MusicQueueRenderer.kt` — Data model: MusicQueueRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MusicResponsiveHeaderRenderer.kt` — Data model: MusicResponsiveHeaderRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MusicResponsiveListItemRenderer.kt` — Data model: MusicResponsiveListItemRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MusicShelfRenderer.kt` — Data model: MusicShelfRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/MusicTwoRowItemRenderer.kt` — Data model: MusicTwoRowItemRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/NavigationEndpoint.kt` — Data model: NavigationEndpoint.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/PlaylistDeleteBody.kt` — Data model: PlaylistDeleteBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/PlaylistPanelRenderer.kt` — Data model: PlaylistPanelRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/PlaylistPanelVideoRenderer.kt` — Data model: PlaylistPanelVideoRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/ResponseContext.kt` — Data model: ResponseContext.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/ReturnYouTubeDislikeResponse.kt` — Data model: ReturnYouTubeDislikeResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/Runs.kt` — Data model: Runs.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/SearchSuggestions.kt` — Data model: SearchSuggestions.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/SearchSuggestionsSectionRenderer.kt` — Data model: SearchSuggestionsSectionRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/SectionListRenderer.kt` — Data model: SectionListRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/SubscriptionButton.kt` — Data model: SubscriptionButton.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/Tabs.kt` — Data model: Tabs.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/TasteProfile.kt` — Data model: TasteProfile.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/ThumbnailRenderer.kt` — Data model: ThumbnailRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/Thumbnails.kt` — Data model: Thumbnails.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/TwoColumnBrowseResultsRenderer.kt` — Data model: TwoColumnBrowseResultsRenderer.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/UrlEndpoint.kt` — Data model: UrlEndpoint.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/YTItem.kt` — Data model: YTItem.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/YouTubeClient.kt` — Data model: YouTubeClient.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/YouTubeDataPage.kt` — Data model: YouTubeDataPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/YouTubeLocale.kt` — Data model: YouTubeLocale.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/body/AccountMenuBody.kt` — Data model: AccountMenuBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/body/BrowseBody.kt` — Data model: BrowseBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/body/CreatePlaylistBody.kt` — Data model: CreatePlaylistBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/body/EditPlaylistBody.kt` — Data model: EditPlaylistBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/body/FeedbackBody.kt` — Data model: FeedbackBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/body/GetQueueBody.kt` — Data model: GetQueueBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/body/GetSearchSuggestionsBody.kt` — Data model: GetSearchSuggestionsBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/body/GetTranscriptBody.kt` — Data model: GetTranscriptBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/body/LikeBody.kt` — Data model: LikeBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/body/NextBody.kt` — Data model: NextBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/body/PlayerBody.kt` — Data model: PlayerBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/body/SearchBody.kt` — Data model: SearchBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/body/SubscribeBody.kt` — Data model: SubscribeBody.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/AccountMenuResponse.kt` — Data model: AccountMenuResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/AddItemYouTubePlaylistResponse.kt` — Data model: AddItemYouTubePlaylistResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/BrowseResponse.kt` — Data model: BrowseResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/ContinuationResponse.kt` — Data model: ContinuationResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/CreatePlaylistResponse.kt` — Data model: CreatePlaylistResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/EditPlaylistResponse.kt` — Data model: EditPlaylistResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/FeedbackResponse.kt` — Data model: FeedbackResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/GetQueueResponse.kt` — Data model: GetQueueResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/GetSearchSuggestionsResponse.kt` — Data model: GetSearchSuggestionsResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/GetTranscriptResponse.kt` — Data model: GetTranscriptResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/ImageUploadResponse.kt` — Data model: ImageUploadResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/NextResponse.kt` — Data model: NextResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/PlayerResponse.kt` — Data model: PlayerResponse.
+- `ytm/src/main/kotlin/com/melodix/ytm/models/response/SearchResponse.kt` — Data model: SearchResponse.
+
+## App — widgets & quick settings (frozen) (6 files)
+
+- `app/src/main/kotlin/com/melodix/music/quicksettings/MusicRecognizerTileService.kt` — QS tile service: MusicRecognizerTileService.
+- `app/src/main/kotlin/com/melodix/music/widget/MetrolistWidgetManager.kt` — Home-screen widget (frozen by design): MetrolistWidgetManager.
+- `app/src/main/kotlin/com/melodix/music/widget/MusicRecognizerWidgetReceiver.kt` — Home-screen widget (frozen by design): MusicRecognizerWidgetReceiver.
+- `app/src/main/kotlin/com/melodix/music/widget/MusicRecognizerWidgetService.kt` — Home-screen widget (frozen by design): MusicRecognizerWidgetService.
+- `app/src/main/kotlin/com/melodix/music/widget/MusicWidgetReceiver.kt` — Home-screen widget (frozen by design): MusicWidgetReceiver.
+- `app/src/main/kotlin/com/melodix/music/widget/TurntableWidgetReceiver.kt` — Home-screen widget (frozen by design): TurntableWidgetReceiver.
+
+## App — flavor sources & tests (6 files)
+
+- `app/src/foss/AndroidManifest.xml` — FOSS-flavor source: AndroidManifest..
+- `app/src/foss/kotlin/com/melodix/music/cast/CastOptionsProvider.kt` — FOSS-flavor source: CastOptionsProvider.
+- `app/src/gms/kotlin/com/melodix/music/cast/CastManager.kt` — GMS-flavor source (Google Cast): CastManager.
+- `app/src/gms/kotlin/com/melodix/music/cast/CastOptionsProvider.kt` — GMS-flavor source (Google Cast): CastOptionsProvider.
+- `app/src/izzy/AndroidManifest.xml` — IzzyOnDroid-flavor source: AndroidManifest..
+- `app/src/izzy/kotlin/com/melodix/music/cast/CastOptionsProvider.kt` — IzzyOnDroid-flavor source: CastOptionsProvider.
+
+## App — resources: values (default) (7 files)
+
+- `app/src/main/res/values/colors.xml` — Static color resources.
+- `app/src/main/res/values/ic_launcher_background.xml` — String/theme resource: ic_launcher_background.xml
+- `app/src/main/res/values/melodix_strings.xml` — Melodix feature strings (Spotify/Qobuz/Listen-Together/haptics…).
+- `app/src/main/res/values/strings.xml` — Core UI strings (upstream set, Melodix-branded).
+- `app/src/main/res/values/styles.xml` — Android themes: Theme.Melodix (+Transparent, widget themes).
+- `app/src/main/res/values/values.xml` — String/theme resource: values.xml
+- `app/src/main/res/values/widget_colors.xml` — String/theme resource: widget_colors.xml
+
+## App — resources: translations (103 files)
+
+- `app/src/main/res/values-ar/melodix_strings.xml` — Arabic translation of UI strings.
+- `app/src/main/res/values-ar/strings.xml` — Arabic translation of UI strings.
+- `app/src/main/res/values-as/melodix_strings.xml` — Assamese translation of UI strings.
+- `app/src/main/res/values-az/melodix_strings.xml` — Azerbaijani translation of UI strings.
+- `app/src/main/res/values-b+sr+Latn/melodix_strings.xml` — Locale b+sr+Latn translation of UI strings.
+- `app/src/main/res/values-b+sr+Latn/strings.xml` — Locale b+sr+Latn translation of UI strings.
+- `app/src/main/res/values-be/melodix_strings.xml` — Belarusian translation of UI strings.
+- `app/src/main/res/values-be/strings.xml` — Belarusian translation of UI strings.
+- `app/src/main/res/values-bg/melodix_strings.xml` — Bulgarian translation of UI strings.
+- `app/src/main/res/values-bg/strings.xml` — Bulgarian translation of UI strings.
+- `app/src/main/res/values-bn-rIN/strings.xml` — Bengali (India) translation of UI strings.
+- `app/src/main/res/values-bn/melodix_strings.xml` — Bengali translation of UI strings.
+- `app/src/main/res/values-bn/strings.xml` — Bengali translation of UI strings.
+- `app/src/main/res/values-bs/melodix_strings.xml` — Bosnian translation of UI strings.
+- `app/src/main/res/values-bs/strings.xml` — Bosnian translation of UI strings.
+- `app/src/main/res/values-ca/melodix_strings.xml` — Catalan translation of UI strings.
+- `app/src/main/res/values-ca/strings.xml` — Catalan translation of UI strings.
+- `app/src/main/res/values-ckb/melodix_strings.xml` — Kurdish (Sorani) translation of UI strings.
+- `app/src/main/res/values-cs/melodix_strings.xml` — Czech translation of UI strings.
+- `app/src/main/res/values-cs/strings.xml` — Czech translation of UI strings.
+- `app/src/main/res/values-de/melodix_strings.xml` — German translation of UI strings.
+- `app/src/main/res/values-de/strings.xml` — German translation of UI strings.
+- `app/src/main/res/values-el/melodix_strings.xml` — Greek translation of UI strings.
+- `app/src/main/res/values-el/strings.xml` — Greek translation of UI strings.
+- `app/src/main/res/values-en-rCA/strings.xml` — English (Canada) translation of UI strings.
+- `app/src/main/res/values-es-rUS/melodix_strings.xml` — Spanish (US) translation of UI strings.
+- `app/src/main/res/values-es-rUS/strings.xml` — Spanish (US) translation of UI strings.
+- `app/src/main/res/values-es/melodix_strings.xml` — Spanish translation of UI strings.
+- `app/src/main/res/values-es/strings.xml` — Spanish translation of UI strings.
+- `app/src/main/res/values-et/melodix_strings.xml` — Estonian translation of UI strings.
+- `app/src/main/res/values-et/strings.xml` — Estonian translation of UI strings.
+- `app/src/main/res/values-eu/melodix_strings.xml` — Basque translation of UI strings.
+- `app/src/main/res/values-fa/melodix_strings.xml` — Persian translation of UI strings.
+- `app/src/main/res/values-fa/strings.xml` — Persian translation of UI strings.
+- `app/src/main/res/values-fi/strings.xml` — Finnish translation of UI strings.
+- `app/src/main/res/values-fil/melodix_strings.xml` — Filipino translation of UI strings.
+- `app/src/main/res/values-fil/strings.xml` — Filipino translation of UI strings.
+- `app/src/main/res/values-fr/melodix_strings.xml` — French translation of UI strings.
+- `app/src/main/res/values-fr/strings.xml` — French translation of UI strings.
+- `app/src/main/res/values-hi/melodix_strings.xml` — Hindi translation of UI strings.
+- `app/src/main/res/values-hi/strings.xml` — Hindi translation of UI strings.
+- `app/src/main/res/values-hr/melodix_strings.xml` — Croatian translation of UI strings.
+- `app/src/main/res/values-hr/strings.xml` — Croatian translation of UI strings.
+- `app/src/main/res/values-hu/melodix_strings.xml` — Hungarian translation of UI strings.
+- `app/src/main/res/values-hu/strings.xml` — Hungarian translation of UI strings.
+- `app/src/main/res/values-in/melodix_strings.xml` — Indonesian translation of UI strings.
+- `app/src/main/res/values-in/strings.xml` — Indonesian translation of UI strings.
+- `app/src/main/res/values-it/melodix_strings.xml` — Italian translation of UI strings.
+- `app/src/main/res/values-it/strings.xml` — Italian translation of UI strings.
+- `app/src/main/res/values-iw/melodix_strings.xml` — Hebrew translation of UI strings.
+- `app/src/main/res/values-iw/strings.xml` — Hebrew translation of UI strings.
+- `app/src/main/res/values-ja/melodix_strings.xml` — Japanese translation of UI strings.
+- `app/src/main/res/values-ja/strings.xml` — Japanese translation of UI strings.
+- `app/src/main/res/values-km/melodix_strings.xml` — Khmer translation of UI strings.
+- `app/src/main/res/values-ko/melodix_strings.xml` — Korean translation of UI strings.
+- `app/src/main/res/values-ko/strings.xml` — Korean translation of UI strings.
+- `app/src/main/res/values-lt/melodix_strings.xml` — Lithuanian translation of UI strings.
+- `app/src/main/res/values-mfe/melodix_strings.xml` — Morisyen translation of UI strings.
+- `app/src/main/res/values-ml/strings.xml` — Malayalam translation of UI strings.
+- `app/src/main/res/values-ms/melodix_strings.xml` — Malay translation of UI strings.
+- `app/src/main/res/values-nb-rNO/melodix_strings.xml` — Norwegian Bokmål translation of UI strings.
+- `app/src/main/res/values-nb-rNO/strings.xml` — Norwegian Bokmål translation of UI strings.
+- `app/src/main/res/values-night-v31/widget_colors.xml` — Locale night-v31 translation of UI strings.
+- `app/src/main/res/values-night/colors.xml` — Locale night translation of UI strings.
+- `app/src/main/res/values-night/widget_colors.xml` — Locale night translation of UI strings.
+- `app/src/main/res/values-nl/melodix_strings.xml` — Dutch translation of UI strings.
+- `app/src/main/res/values-nl/strings.xml` — Dutch translation of UI strings.
+- `app/src/main/res/values-nn/melodix_strings.xml` — Norwegian Nynorsk translation of UI strings.
+- `app/src/main/res/values-or/melodix_strings.xml` — Odia translation of UI strings.
+- `app/src/main/res/values-pa/strings.xml` — Punjabi translation of UI strings.
+- `app/src/main/res/values-pl/melodix_strings.xml` — Polish translation of UI strings.
+- `app/src/main/res/values-pl/strings.xml` — Polish translation of UI strings.
+- `app/src/main/res/values-pt-rBR/melodix_strings.xml` — Portuguese (Brazil) translation of UI strings.
+- `app/src/main/res/values-pt-rBR/strings.xml` — Portuguese (Brazil) translation of UI strings.
+- `app/src/main/res/values-pt/melodix_strings.xml` — Portuguese translation of UI strings.
+- `app/src/main/res/values-pt/strings.xml` — Portuguese translation of UI strings.
+- `app/src/main/res/values-ro/melodix_strings.xml` — Romanian translation of UI strings.
+- `app/src/main/res/values-ro/strings.xml` — Romanian translation of UI strings.
+- `app/src/main/res/values-ru/melodix_strings.xml` — Russian translation of UI strings.
+- `app/src/main/res/values-ru/strings.xml` — Russian translation of UI strings.
+- `app/src/main/res/values-sk/melodix_strings.xml` — Slovak translation of UI strings.
+- `app/src/main/res/values-sk/strings.xml` — Slovak translation of UI strings.
+- `app/src/main/res/values-sl/melodix_strings.xml` — Slovenian translation of UI strings.
+- `app/src/main/res/values-sl/strings.xml` — Slovenian translation of UI strings.
+- `app/src/main/res/values-sv/melodix_strings.xml` — Swedish translation of UI strings.
+- `app/src/main/res/values-ta/melodix_strings.xml` — Tamil translation of UI strings.
+- `app/src/main/res/values-ta/strings.xml` — Tamil translation of UI strings.
+- `app/src/main/res/values-te/melodix_strings.xml` — Telugu translation of UI strings.
+- `app/src/main/res/values-te/strings.xml` — Telugu translation of UI strings.
+- `app/src/main/res/values-th/melodix_strings.xml` — Thai translation of UI strings.
+- `app/src/main/res/values-tr/melodix_strings.xml` — Turkish translation of UI strings.
+- `app/src/main/res/values-tr/strings.xml` — Turkish translation of UI strings.
+- `app/src/main/res/values-uk/melodix_strings.xml` — Ukrainian translation of UI strings.
+- `app/src/main/res/values-uk/strings.xml` — Ukrainian translation of UI strings.
+- `app/src/main/res/values-v31/styles.xml` — Locale v31 translation of UI strings.
+- `app/src/main/res/values-v31/widget_colors.xml` — Locale v31 translation of UI strings.
+- `app/src/main/res/values-vi/melodix_strings.xml` — Vietnamese translation of UI strings.
+- `app/src/main/res/values-vi/strings.xml` — Vietnamese translation of UI strings.
+- `app/src/main/res/values-wae/melodix_strings.xml` — Walser translation of UI strings.
+- `app/src/main/res/values-zh-rCN/melodix_strings.xml` — Chinese (Simplified) translation of UI strings.
+- `app/src/main/res/values-zh-rCN/strings.xml` — Chinese (Simplified) translation of UI strings.
+- `app/src/main/res/values-zh-rTW/melodix_strings.xml` — Chinese (Traditional) translation of UI strings.
+- `app/src/main/res/values-zh-rTW/strings.xml` — Chinese (Traditional) translation of UI strings.
+
+## App — resources: drawables & fonts (226 files)
+
+- `app/src/main/res/drawable-night-v31/widget_background.xml` — XML resource/config: widget_background.xml.
+- `app/src/main/res/drawable-night-v31/widget_play_pill_bg.xml` — XML resource/config: widget_play_pill_bg.xml.
+- `app/src/main/res/drawable-night-v31/widget_progress_fill.xml` — XML resource/config: widget_progress_fill.xml.
+- `app/src/main/res/drawable-night-v31/widget_progress_track.xml` — XML resource/config: widget_progress_track.xml.
+- `app/src/main/res/drawable-night-v31/widget_turntable_nav_bg.xml` — XML resource/config: widget_turntable_nav_bg.xml.
+- `app/src/main/res/drawable-night-v31/widget_turntable_play_bg.xml` — XML resource/config: widget_turntable_play_bg.xml.
+- `app/src/main/res/drawable-night/widget_background.xml` — XML resource/config: widget_background.xml.
+- `app/src/main/res/drawable-night/widget_play_pill_bg.xml` — XML resource/config: widget_play_pill_bg.xml.
+- `app/src/main/res/drawable-night/widget_progress_fill.xml` — XML resource/config: widget_progress_fill.xml.
+- `app/src/main/res/drawable-night/widget_progress_track.xml` — XML resource/config: widget_progress_track.xml.
+- `app/src/main/res/drawable-night/widget_turntable_nav_bg.xml` — XML resource/config: widget_turntable_nav_bg.xml.
+- `app/src/main/res/drawable-night/widget_turntable_play_bg.xml` — XML resource/config: widget_turntable_play_bg.xml.
+- `app/src/main/res/drawable-v31/ic_launcher_background_v31.xml` — XML resource/config: ic_launcher_background_v31.xml.
+- `app/src/main/res/drawable-v31/ic_widget_mic.xml` — XML resource/config: ic_widget_mic.xml.
+- `app/src/main/res/drawable-v31/widget_background.xml` — XML resource/config: widget_background.xml.
+- `app/src/main/res/drawable-v31/widget_mic_button_bg.xml` — XML resource/config: widget_mic_button_bg.xml.
+- `app/src/main/res/drawable-v31/widget_mic_button_bg_active.xml` — XML resource/config: widget_mic_button_bg_active.xml.
+- `app/src/main/res/drawable-v31/widget_mic_pulse_1.xml` — XML resource/config: widget_mic_pulse_1.xml.
+- `app/src/main/res/drawable-v31/widget_mic_pulse_2.xml` — XML resource/config: widget_mic_pulse_2.xml.
+- `app/src/main/res/drawable-v31/widget_mic_pulse_3.xml` — XML resource/config: widget_mic_pulse_3.xml.
+- `app/src/main/res/drawable-v31/widget_mic_pulse_4.xml` — XML resource/config: widget_mic_pulse_4.xml.
+- `app/src/main/res/drawable-v31/widget_play_pill_bg.xml` — XML resource/config: widget_play_pill_bg.xml.
+- `app/src/main/res/drawable-v31/widget_progress_fill.xml` — XML resource/config: widget_progress_fill.xml.
+- `app/src/main/res/drawable-v31/widget_progress_track.xml` — XML resource/config: widget_progress_track.xml.
+- `app/src/main/res/drawable-v31/widget_turntable_nav_bg.xml` — XML resource/config: widget_turntable_nav_bg.xml.
+- `app/src/main/res/drawable-v31/widget_turntable_play_bg.xml` — XML resource/config: widget_turntable_play_bg.xml.
+- `app/src/main/res/drawable/account.xml` — Vector icon 'account' used across UI.
+- `app/src/main/res/drawable/add.xml` — Vector icon 'add' used across UI.
+- `app/src/main/res/drawable/add_circle.xml` — Vector icon 'add_circle' used across UI.
+- `app/src/main/res/drawable/album.xml` — Vector icon 'album' used across UI.
+- `app/src/main/res/drawable/alphabet_cyrillic.xml` — Vector icon 'alphabet_cyrillic' used across UI.
+- `app/src/main/res/drawable/app_logo.xml` — Vector icon 'app_logo' used across UI.
+- `app/src/main/res/drawable/arrow_back.xml` — Vector icon 'arrow_back' used across UI.
+- `app/src/main/res/drawable/arrow_downward.xml` — Vector icon 'arrow_downward' used across UI.
+- `app/src/main/res/drawable/arrow_forward.xml` — Vector icon 'arrow_forward' used across UI.
+- `app/src/main/res/drawable/arrow_top_left.xml` — Vector icon 'arrow_top_left' used across UI.
+- `app/src/main/res/drawable/arrow_upward.xml` — Vector icon 'arrow_upward' used across UI.
+- `app/src/main/res/drawable/artist.xml` — Vector icon 'artist' used across UI.
+- `app/src/main/res/drawable/backup.xml` — Vector icon 'backup' used across UI.
+- `app/src/main/res/drawable/baseline_event_repeat_24.xml` — Vector icon 'baseline_event_repeat_24' used across UI.
+- `app/src/main/res/drawable/bedtime.xml` — Vector icon 'bedtime' used across UI.
+- `app/src/main/res/drawable/bluetooth.xml` — Vector icon 'bluetooth' used across UI.
+- `app/src/main/res/drawable/blur.xml` — Vector icon 'blur' used across UI.
+- `app/src/main/res/drawable/bug_report.xml` — Vector icon 'bug_report' used across UI.
+- `app/src/main/res/drawable/buymeacoffee.xml` — Vector icon 'buymeacoffee' used across UI.
+- `app/src/main/res/drawable/cached.xml` — Vector icon 'cached' used across UI.
+- `app/src/main/res/drawable/cast.xml` — Vector icon 'cast' used across UI.
+- `app/src/main/res/drawable/cast_connected.xml` — Vector icon 'cast_connected' used across UI.
+- `app/src/main/res/drawable/check.xml` — Vector icon 'check' used across UI.
+- `app/src/main/res/drawable/clear_all.xml` — Vector icon 'clear_all' used across UI.
+- `app/src/main/res/drawable/close.xml` — Vector icon 'close' used across UI.
+- `app/src/main/res/drawable/cloud.xml` — Vector icon 'cloud' used across UI.
+- `app/src/main/res/drawable/content_copy.xml` — Vector icon 'content_copy' used across UI.
+- `app/src/main/res/drawable/contrast.xml` — Vector icon 'contrast' used across UI.
+- `app/src/main/res/drawable/crop.xml` — Vector icon 'crop' used across UI.
+- `app/src/main/res/drawable/crown.xml` — Vector icon 'crown' used across UI.
+- `app/src/main/res/drawable/delete.xml` — Vector icon 'delete' used across UI.
+- `app/src/main/res/drawable/delete_history.xml` — Vector icon 'delete_history' used across UI.
+- `app/src/main/res/drawable/discord.xml` — Vector icon 'discord' used across UI.
+- `app/src/main/res/drawable/discover_tune.xml` — Vector icon 'discover_tune' used across UI.
+- `app/src/main/res/drawable/dock_to_top.xml` — Vector icon 'dock_to_top' used across UI.
+- `app/src/main/res/drawable/done.xml` — Vector icon 'done' used across UI.
+- `app/src/main/res/drawable/download.xml` — Vector icon 'download' used across UI.
+- `app/src/main/res/drawable/drag_handle.xml` — Vector icon 'drag_handle' used across UI.
+- `app/src/main/res/drawable/edit.xml` — Vector icon 'edit' used across UI.
+- `app/src/main/res/drawable/equalizer.xml` — Vector icon 'equalizer' used across UI.
+- `app/src/main/res/drawable/error.xml` — Vector icon 'error' used across UI.
+- `app/src/main/res/drawable/expand_less.xml` — Vector icon 'expand_less' used across UI.
+- `app/src/main/res/drawable/expand_more.xml` — Vector icon 'expand_more' used across UI.
+- `app/src/main/res/drawable/explicit.xml` — Vector icon 'explicit' used across UI.
+- `app/src/main/res/drawable/explore_outlined.xml` — Vector icon 'explore_outlined' used across UI.
+- `app/src/main/res/drawable/fast_forward.xml` — Vector icon 'fast_forward' used across UI.
+- `app/src/main/res/drawable/favorite.xml` — Vector icon 'favorite' used across UI.
+- `app/src/main/res/drawable/favorite_border.xml` — Vector icon 'favorite_border' used across UI.
+- `app/src/main/res/drawable/folder.xml` — Vector icon 'folder' used across UI.
+- `app/src/main/res/drawable/fullscreen.xml` — Vector icon 'fullscreen' used across UI.
+- `app/src/main/res/drawable/github.xml` — Vector icon 'github' used across UI.
+- `app/src/main/res/drawable/gradient.xml` — Vector icon 'gradient' used across UI.
+- `app/src/main/res/drawable/graphic_eq.xml` — Vector icon 'graphic_eq' used across UI.
+- `app/src/main/res/drawable/grid_view.xml` — Vector icon 'grid_view' used across UI.
+- `app/src/main/res/drawable/group.xml` — Vector icon 'group' used across UI.
+- `app/src/main/res/drawable/group_add.xml` — Vector icon 'group_add' used across UI.
+- `app/src/main/res/drawable/group_filled.xml` — Vector icon 'group_filled' used across UI.
+- `app/src/main/res/drawable/group_outlined.xml` — Vector icon 'group_outlined' used across UI.
+- `app/src/main/res/drawable/haptic.xml` — Vector icon 'haptic' used across UI.
+- `app/src/main/res/drawable/hide_image.xml` — Vector icon 'hide_image' used across UI.
+- `app/src/main/res/drawable/history.xml` — Vector icon 'history' used across UI.
+- `app/src/main/res/drawable/home_filled.xml` — Vector icon 'home_filled' used across UI.
+- `app/src/main/res/drawable/home_outlined.xml` — Vector icon 'home_outlined' used across UI.
+- `app/src/main/res/drawable/ic_android_auto.xml` — Vector icon 'ic_android_auto' used across UI.
+- `app/src/main/res/drawable/ic_dynamic_icon.xml` — Vector icon 'ic_dynamic_icon' used across UI.
+- `app/src/main/res/drawable/ic_heart.xml` — Vector icon 'ic_heart' used across UI.
+- `app/src/main/res/drawable/ic_heart_outline.xml` — Vector icon 'ic_heart_outline' used across UI.
+- `app/src/main/res/drawable/ic_launcher_background_v31.xml` — Vector icon 'ic_launcher_background_v31' used across UI.
+- `app/src/main/res/drawable/ic_launcher_foreground.xml` — Vector icon 'ic_launcher_foreground' used across UI.
+- `app/src/main/res/drawable/ic_launcher_foreground_v31.xml` — Vector icon 'ic_launcher_foreground_v31' used across UI.
+- `app/src/main/res/drawable/ic_launcher_monochrome.xml` — Vector icon 'ic_launcher_monochrome' used across UI.
+- `app/src/main/res/drawable/ic_launcher_static_foreground.png` — Raster artwork 'ic_launcher_static_foreground.png' (icon/branding).
+- `app/src/main/res/drawable/ic_push_pin.xml` — Vector icon 'ic_push_pin' used across UI.
+- `app/src/main/res/drawable/ic_widget_heart_nav.xml` — Vector icon 'ic_widget_heart_nav' used across UI.
+- `app/src/main/res/drawable/ic_widget_heart_outline_nav.xml` — Vector icon 'ic_widget_heart_outline_nav' used across UI.
+- `app/src/main/res/drawable/ic_widget_mic.xml` — Vector icon 'ic_widget_mic' used across UI.
+- `app/src/main/res/drawable/ic_widget_pause.xml` — Vector icon 'ic_widget_pause' used across UI.
+- `app/src/main/res/drawable/ic_widget_pause_low.xml` — Vector icon 'ic_widget_pause_low' used across UI.
+- `app/src/main/res/drawable/ic_widget_pause_secondary.xml` — Vector icon 'ic_widget_pause_secondary' used across UI.
+- `app/src/main/res/drawable/ic_widget_play.xml` — Vector icon 'ic_widget_play' used across UI.
+- `app/src/main/res/drawable/ic_widget_play_low.xml` — Vector icon 'ic_widget_play_low' used across UI.
+- `app/src/main/res/drawable/ic_widget_play_secondary.xml` — Vector icon 'ic_widget_play_secondary' used across UI.
+- `app/src/main/res/drawable/ic_widget_skip_next.xml` — Vector icon 'ic_widget_skip_next' used across UI.
+- `app/src/main/res/drawable/ic_widget_skip_previous.xml` — Vector icon 'ic_widget_skip_previous' used across UI.
+- `app/src/main/res/drawable/info.xml` — Vector icon 'info' used across UI.
+- `app/src/main/res/drawable/insert_photo.xml` — Vector icon 'insert_photo' used across UI.
+- `app/src/main/res/drawable/instagram.xml` — Vector icon 'instagram' used across UI.
+- `app/src/main/res/drawable/integration.xml` — Vector icon 'integration' used across UI.
+- `app/src/main/res/drawable/key.xml` — Vector icon 'key' used across UI.
+- `app/src/main/res/drawable/language.xml` — Vector icon 'language' used across UI.
+- `app/src/main/res/drawable/language_japanese_latin.xml` — Vector icon 'language_japanese_latin' used across UI.
+- `app/src/main/res/drawable/language_korean_latin.xml` — Vector icon 'language_korean_latin' used across UI.
+- `app/src/main/res/drawable/library_add.xml` — Vector icon 'library_add' used across UI.
+- `app/src/main/res/drawable/library_add_check.xml` — Vector icon 'library_add_check' used across UI.
+- `app/src/main/res/drawable/library_music.xml` — Vector icon 'library_music' used across UI.
+- `app/src/main/res/drawable/library_music_filled.xml` — Vector icon 'library_music_filled' used across UI.
+- `app/src/main/res/drawable/library_music_outlined.xml` — Vector icon 'library_music_outlined' used across UI.
+- `app/src/main/res/drawable/linear_scale.xml` — Vector icon 'linear_scale' used across UI.
+- `app/src/main/res/drawable/link.xml` — Vector icon 'link' used across UI.
+- `app/src/main/res/drawable/list.xml` — Vector icon 'list' used across UI.
+- `app/src/main/res/drawable/location_on.xml` — Vector icon 'location_on' used across UI.
+- `app/src/main/res/drawable/lock.xml` — Vector icon 'lock' used across UI.
+- `app/src/main/res/drawable/lock_open.xml` — Vector icon 'lock_open' used across UI.
+- `app/src/main/res/drawable/login.xml` — Vector icon 'login' used across UI.
+- `app/src/main/res/drawable/logout.xml` — Vector icon 'logout' used across UI.
+- `app/src/main/res/drawable/lyrics.xml` — Vector icon 'lyrics' used across UI.
+- `app/src/main/res/drawable/manage_search.xml` — Vector icon 'manage_search' used across UI.
+- `app/src/main/res/drawable/mic.xml` — Vector icon 'mic' used across UI.
+- `app/src/main/res/drawable/more_horiz.xml` — Vector icon 'more_horiz' used across UI.
+- `app/src/main/res/drawable/more_time.xml` — Vector icon 'more_time' used across UI.
+- `app/src/main/res/drawable/more_vert.xml` — Vector icon 'more_vert' used across UI.
+- `app/src/main/res/drawable/music_note.xml` — Vector icon 'music_note' used across UI.
+- `app/src/main/res/drawable/nav_bar.xml` — Vector icon 'nav_bar' used across UI.
+- `app/src/main/res/drawable/navigate_next.xml` — Vector icon 'navigate_next' used across UI.
+- `app/src/main/res/drawable/newspaper.xml` — Vector icon 'newspaper' used across UI.
+- `app/src/main/res/drawable/notification.xml` — Vector icon 'notification' used across UI.
+- `app/src/main/res/drawable/offline.xml` — Vector icon 'offline' used across UI.
+- `app/src/main/res/drawable/palette.xml` — Vector icon 'palette' used across UI.
+- `app/src/main/res/drawable/pause.xml` — Vector icon 'pause' used across UI.
+- `app/src/main/res/drawable/person.xml` — Vector icon 'person' used across UI.
+- `app/src/main/res/drawable/play.xml` — Vector icon 'play' used across UI.
+- `app/src/main/res/drawable/playlist_add.xml` — Vector icon 'playlist_add' used across UI.
+- `app/src/main/res/drawable/playlist_play.xml` — Vector icon 'playlist_play' used across UI.
+- `app/src/main/res/drawable/queue_music.xml` — Vector icon 'queue_music' used across UI.
+- `app/src/main/res/drawable/radio.xml` — Vector icon 'radio' used across UI.
+- `app/src/main/res/drawable/radio_button_checked.xml` — Vector icon 'radio_button_checked' used across UI.
+- `app/src/main/res/drawable/radio_button_unchecked.xml` — Vector icon 'radio_button_unchecked' used across UI.
+- `app/src/main/res/drawable/refresh.xml` — Vector icon 'refresh' used across UI.
+- `app/src/main/res/drawable/remove.xml` — Vector icon 'remove' used across UI.
+- `app/src/main/res/drawable/repeat.xml` — Vector icon 'repeat' used across UI.
+- `app/src/main/res/drawable/repeat_on.xml` — Vector icon 'repeat_on' used across UI.
+- `app/src/main/res/drawable/repeat_one.xml` — Vector icon 'repeat_one' used across UI.
+- `app/src/main/res/drawable/repeat_one_on.xml` — Vector icon 'repeat_one_on' used across UI.
+- `app/src/main/res/drawable/replay.xml` — Vector icon 'replay' used across UI.
+- `app/src/main/res/drawable/restore.xml` — Vector icon 'restore' used across UI.
+- `app/src/main/res/drawable/screenshot.xml` — Vector icon 'screenshot' used across UI.
+- `app/src/main/res/drawable/search.xml` — Vector icon 'search' used across UI.
+- `app/src/main/res/drawable/search_off.xml` — Vector icon 'search_off' used across UI.
+- `app/src/main/res/drawable/security.xml` — Vector icon 'security' used across UI.
+- `app/src/main/res/drawable/select_all.xml` — Vector icon 'select_all' used across UI.
+- `app/src/main/res/drawable/settings.xml` — Vector icon 'settings' used across UI.
+- `app/src/main/res/drawable/share.xml` — Vector icon 'share' used across UI.
+- `app/src/main/res/drawable/shortcut_library.xml` — Vector icon 'shortcut_library' used across UI.
+- `app/src/main/res/drawable/shortcut_search.xml` — Vector icon 'shortcut_search' used across UI.
+- `app/src/main/res/drawable/shuffle.xml` — Vector icon 'shuffle' used across UI.
+- `app/src/main/res/drawable/shuffle_on.xml` — Vector icon 'shuffle_on' used across UI.
+- `app/src/main/res/drawable/similar.xml` — Vector icon 'similar' used across UI.
+- `app/src/main/res/drawable/skip_next.xml` — Vector icon 'skip_next' used across UI.
+- `app/src/main/res/drawable/skip_previous.xml` — Vector icon 'skip_previous' used across UI.
+- `app/src/main/res/drawable/sliders.xml` — Vector icon 'sliders' used across UI.
+- `app/src/main/res/drawable/slow_motion_video.xml` — Vector icon 'slow_motion_video' used across UI.
+- `app/src/main/res/drawable/small_icon.xml` — Vector icon 'small_icon' used across UI.
+- `app/src/main/res/drawable/speed.xml` — Vector icon 'speed' used across UI.
+- `app/src/main/res/drawable/spotify.xml` — Vector icon 'spotify' used across UI.
+- `app/src/main/res/drawable/star.xml` — Vector icon 'star' used across UI.
+- `app/src/main/res/drawable/stats.xml` — Vector icon 'stats' used across UI.
+- `app/src/main/res/drawable/storage.xml` — Vector icon 'storage' used across UI.
+- `app/src/main/res/drawable/subscribe.xml` — Vector icon 'subscribe' used across UI.
+- `app/src/main/res/drawable/subscribed.xml` — Vector icon 'subscribed' used across UI.
+- `app/src/main/res/drawable/swipe.xml` — Vector icon 'swipe' used across UI.
+- `app/src/main/res/drawable/sync.xml` — Vector icon 'sync' used across UI.
+- `app/src/main/res/drawable/tab.xml` — Vector icon 'tab' used across UI.
+- `app/src/main/res/drawable/telegram.xml` — Vector icon 'telegram' used across UI.
+- `app/src/main/res/drawable/time_auto.xml` — Vector icon 'time_auto' used across UI.
+- `app/src/main/res/drawable/timer.xml` — Vector icon 'timer' used across UI.
+- `app/src/main/res/drawable/timer_arrow_down.xml` — Vector icon 'timer_arrow_down' used across UI.
+- `app/src/main/res/drawable/token.xml` — Vector icon 'token' used across UI.
+- `app/src/main/res/drawable/translate.xml` — Vector icon 'translate' used across UI.
+- `app/src/main/res/drawable/trending_up.xml` — Vector icon 'trending_up' used across UI.
+- `app/src/main/res/drawable/tune.xml` — Vector icon 'tune' used across UI.
+- `app/src/main/res/drawable/update.xml` — Vector icon 'update' used across UI.
+- `app/src/main/res/drawable/upload.xml` — Vector icon 'upload' used across UI.
+- `app/src/main/res/drawable/volume_down.xml` — Vector icon 'volume_down' used across UI.
+- `app/src/main/res/drawable/volume_mute.xml` — Vector icon 'volume_mute' used across UI.
+- `app/src/main/res/drawable/volume_off.xml` — Vector icon 'volume_off' used across UI.
+- `app/src/main/res/drawable/volume_off_pause.xml` — Vector icon 'volume_off_pause' used across UI.
+- `app/src/main/res/drawable/volume_up.xml` — Vector icon 'volume_up' used across UI.
+- `app/src/main/res/drawable/warning.xml` — Vector icon 'warning' used across UI.
+- `app/src/main/res/drawable/widget_background.xml` — Vector icon 'widget_background' used across UI.
+- `app/src/main/res/drawable/widget_like_button_bg.xml` — Vector icon 'widget_like_button_bg' used across UI.
+- `app/src/main/res/drawable/widget_mic_button_bg.xml` — Vector icon 'widget_mic_button_bg' used across UI.
+- `app/src/main/res/drawable/widget_mic_button_bg_active.xml` — Vector icon 'widget_mic_button_bg_active' used across UI.
+- `app/src/main/res/drawable/widget_mic_pulse_1.xml` — Vector icon 'widget_mic_pulse_1' used across UI.
+- `app/src/main/res/drawable/widget_mic_pulse_2.xml` — Vector icon 'widget_mic_pulse_2' used across UI.
+- `app/src/main/res/drawable/widget_mic_pulse_3.xml` — Vector icon 'widget_mic_pulse_3' used across UI.
+- `app/src/main/res/drawable/widget_mic_pulse_4.xml` — Vector icon 'widget_mic_pulse_4' used across UI.
+- `app/src/main/res/drawable/widget_mic_pulse_idle.xml` — Vector icon 'widget_mic_pulse_idle' used across UI.
+- `app/src/main/res/drawable/widget_play_button_circular.xml` — Vector icon 'widget_play_button_circular' used across UI.
+- `app/src/main/res/drawable/widget_play_pill_bg.xml` — Vector icon 'widget_play_pill_bg' used across UI.
+- `app/src/main/res/drawable/widget_progress_clip.xml` — Vector icon 'widget_progress_clip' used across UI.
+- `app/src/main/res/drawable/widget_progress_fill.xml` — Vector icon 'widget_progress_fill' used across UI.
+- `app/src/main/res/drawable/widget_progress_track.xml` — Vector icon 'widget_progress_track' used across UI.
+- `app/src/main/res/drawable/widget_turntable_default_art.xml` — Vector icon 'widget_turntable_default_art' used across UI.
+- `app/src/main/res/drawable/widget_turntable_nav_bg.xml` — Vector icon 'widget_turntable_nav_bg' used across UI.
+- `app/src/main/res/drawable/widget_turntable_play_bg.xml` — Vector icon 'widget_turntable_play_bg' used across UI.
+- `app/src/main/res/drawable/wifi_proxy.xml` — Vector icon 'wifi_proxy' used across UI.
+- `app/src/main/res/drawable/wrapped_playlistv1.png` — Raster artwork 'wrapped_playlistv1.png' (icon/branding).
+- `app/src/main/res/drawable/wrapped_playlistv2.png` — Raster artwork 'wrapped_playlistv2.png' (icon/branding).
+- `app/src/main/res/font/bbh_bartle.xml` — Bundled font file (bbh_bartle, Wrapped screen only).
+- `app/src/main/res/font/bbh_bartle_regular.ttf` — Bundled font file (bbh_bartle, Wrapped screen only).
+
+## App — resources: mipmaps (launcher icons) (32 files)
+
+- `app/src/main/res/mipmap-anydpi-v31/ic_launcher.xml` — Launcher icon asset (ic_launcher.xml).
+- `app/src/main/res/mipmap-anydpi-v31/ic_launcher_round.xml` — Launcher icon asset (ic_launcher_round.xml).
+- `app/src/main/res/mipmap-anydpi/ic_launcher.xml` — Launcher icon asset (ic_launcher.xml).
+- `app/src/main/res/mipmap-anydpi/ic_launcher_round.xml` — Launcher icon asset (ic_launcher_round.xml).
+- `app/src/main/res/mipmap-anydpi/ic_launcher_static.xml` — Launcher icon asset (ic_launcher_static.xml).
+- `app/src/main/res/mipmap-anydpi/ic_launcher_static_round.xml` — Launcher icon asset (ic_launcher_static_round.xml).
+- `app/src/main/res/mipmap-hdpi/ic_launcher.png` — Launcher icon asset (ic_launcher.png).
+- `app/src/main/res/mipmap-hdpi/ic_launcher_background.png` — Launcher icon asset (ic_launcher_background.png).
+- `app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png` — Launcher icon asset (ic_launcher_foreground.png).
+- `app/src/main/res/mipmap-hdpi/ic_launcher_monochrome.png` — Launcher icon asset (ic_launcher_monochrome.png).
+- `app/src/main/res/mipmap-hdpi/ic_launcher_round.png` — Launcher icon asset (ic_launcher_round.png).
+- `app/src/main/res/mipmap-mdpi/ic_launcher.png` — Launcher icon asset (ic_launcher.png).
+- `app/src/main/res/mipmap-mdpi/ic_launcher_background.png` — Launcher icon asset (ic_launcher_background.png).
+- `app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png` — Launcher icon asset (ic_launcher_foreground.png).
+- `app/src/main/res/mipmap-mdpi/ic_launcher_monochrome.png` — Launcher icon asset (ic_launcher_monochrome.png).
+- `app/src/main/res/mipmap-mdpi/ic_launcher_round.png` — Launcher icon asset (ic_launcher_round.png).
+- `app/src/main/res/mipmap-xhdpi/ic_launcher.png` — Launcher icon asset (ic_launcher.png).
+- `app/src/main/res/mipmap-xhdpi/ic_launcher_background.png` — Launcher icon asset (ic_launcher_background.png).
+- `app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png` — Launcher icon asset (ic_launcher_foreground.png).
+- `app/src/main/res/mipmap-xhdpi/ic_launcher_monochrome.png` — Launcher icon asset (ic_launcher_monochrome.png).
+- `app/src/main/res/mipmap-xhdpi/ic_launcher_round.png` — Launcher icon asset (ic_launcher_round.png).
+- `app/src/main/res/mipmap-xhdpi/tv_banner.png` — Launcher icon asset (tv_banner.png).
+- `app/src/main/res/mipmap-xxhdpi/ic_launcher.png` — Launcher icon asset (ic_launcher.png).
+- `app/src/main/res/mipmap-xxhdpi/ic_launcher_background.png` — Launcher icon asset (ic_launcher_background.png).
+- `app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png` — Launcher icon asset (ic_launcher_foreground.png).
+- `app/src/main/res/mipmap-xxhdpi/ic_launcher_monochrome.png` — Launcher icon asset (ic_launcher_monochrome.png).
+- `app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png` — Launcher icon asset (ic_launcher_round.png).
+- `app/src/main/res/mipmap-xxxhdpi/ic_launcher.png` — Launcher icon asset (ic_launcher.png).
+- `app/src/main/res/mipmap-xxxhdpi/ic_launcher_background.png` — Launcher icon asset (ic_launcher_background.png).
+- `app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png` — Launcher icon asset (ic_launcher_foreground.png).
+- `app/src/main/res/mipmap-xxxhdpi/ic_launcher_monochrome.png` — Launcher icon asset (ic_launcher_monochrome.png).
+- `app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png` — Launcher icon asset (ic_launcher_round.png).
+
+## App — resources: xml layouts & configs (17 files)
+
+- `app/src/main/res/layout/widget_compact_square.xml` — App-widget remote-views layout 'widget_compact_square.xml' (widgets frozen by design).
+- `app/src/main/res/layout/widget_compact_wide.xml` — App-widget remote-views layout 'widget_compact_wide.xml' (widgets frozen by design).
+- `app/src/main/res/layout/widget_music_player.xml` — App-widget remote-views layout 'widget_music_player.xml' (widgets frozen by design).
+- `app/src/main/res/layout/widget_recognizer_compact.xml` — App-widget remote-views layout 'widget_recognizer_compact.xml' (widgets frozen by design).
+- `app/src/main/res/layout/widget_recognizer_tiny.xml` — App-widget remote-views layout 'widget_recognizer_tiny.xml' (widgets frozen by design).
+- `app/src/main/res/layout/widget_recognizer_wide.xml` — App-widget remote-views layout 'widget_recognizer_wide.xml' (widgets frozen by design).
+- `app/src/main/res/layout/widget_turntable.xml` — App-widget remote-views layout 'widget_turntable.xml' (widgets frozen by design).
+- `app/src/main/res/raw/wrapped_theme.mp3` — Raw asset: wrapped_theme.mp3.
+- `app/src/main/res/xml/automotive_app_desc.xml` — System XML config: automotive_app_desc.xml (widget info, shortcuts, backup rules, paths).
+- `app/src/main/res/xml/backup_rules.xml` — System XML config: backup_rules.xml (widget info, shortcuts, backup rules, paths).
+- `app/src/main/res/xml/data_extraction_rules.xml` — System XML config: data_extraction_rules.xml (widget info, shortcuts, backup rules, paths).
+- `app/src/main/res/xml/music_widget_info.xml` — System XML config: music_widget_info.xml (widget info, shortcuts, backup rules, paths).
+- `app/src/main/res/xml/network_security_config.xml` — System XML config: network_security_config.xml (widget info, shortcuts, backup rules, paths).
+- `app/src/main/res/xml/provider_paths.xml` — System XML config: provider_paths.xml (widget info, shortcuts, backup rules, paths).
+- `app/src/main/res/xml/recognizer_widget_info.xml` — System XML config: recognizer_widget_info.xml (widget info, shortcuts, backup rules, paths).
+- `app/src/main/res/xml/shortcuts.xml` — System XML config: shortcuts.xml (widget info, shortcuts, backup rules, paths).
+- `app/src/main/res/xml/turntable_widget_info.xml` — System XML config: turntable_widget_info.xml (widget info, shortcuts, backup rules, paths).
+
+## Module :ytm — YouTube/InnerTube client (33 files)
+
+- `ytm/.gitignore` — YouTube/InnerTube client module: .gitignore.
+- `ytm/build.gradle.kts` — YouTube/InnerTube client module: build.gradle.kts.
+- `ytm/src/main/AndroidManifest.xml` — YouTube/InnerTube client module: AndroidManifest.xml.
+- `ytm/src/main/kotlin/com/melodix/ytm/NetworkConfig.kt` — YouTube/InnerTube client module: NetworkConfig.
+- `ytm/src/main/kotlin/com/melodix/ytm/YouTube.kt` — YouTube/InnerTube client module: YouTube.
+- `ytm/src/main/kotlin/com/melodix/ytm/YouTubeConstants.kt` — YouTube/InnerTube client module: YouTubeConstants.
+- `ytm/src/main/kotlin/com/melodix/ytm/Ytm.kt` — YouTube/InnerTube client module: Ytm.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/AlbumPage.kt` — YouTube/InnerTube client module: AlbumPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/ArtistItemsContinuationPage.kt` — YouTube/InnerTube client module: ArtistItemsContinuationPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/ArtistItemsPage.kt` — YouTube/InnerTube client module: ArtistItemsPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/ArtistPage.kt` — YouTube/InnerTube client module: ArtistPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/BrowseResult.kt` — YouTube/InnerTube client module: BrowseResult.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/ChartsPage.kt` — YouTube/InnerTube client module: ChartsPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/ExplorePage.kt` — YouTube/InnerTube client module: ExplorePage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/HistoryPage.kt` — YouTube/InnerTube client module: HistoryPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/HomePage.kt` — YouTube/InnerTube client module: HomePage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/LibraryAlbumsPage.kt` — YouTube/InnerTube client module: LibraryAlbumsPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/LibraryContinuationPage.kt` — YouTube/InnerTube client module: LibraryContinuationPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/LibraryPage.kt` — YouTube/InnerTube client module: LibraryPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/MoodAndGenres.kt` — YouTube/InnerTube client module: MoodAndGenres.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/NewPipe.kt` — YouTube/InnerTube client module: NewPipe.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/NewReleaseAlbumPage.kt` — YouTube/InnerTube client module: NewReleaseAlbumPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/NextPage.kt` — YouTube/InnerTube client module: NextPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/PageHelper.kt` — YouTube/InnerTube client module: PageHelper.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/PlaylistContinuationPage.kt` — YouTube/InnerTube client module: PlaylistContinuationPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/PlaylistPage.kt` — YouTube/InnerTube client module: PlaylistPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/PodcastPage.kt` — YouTube/InnerTube client module: PodcastPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/RelatedPage.kt` — YouTube/InnerTube client module: RelatedPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/SearchPage.kt` — YouTube/InnerTube client module: SearchPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/SearchSuggestionPage.kt` — YouTube/InnerTube client module: SearchSuggestionPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/pages/SearchSummaryPage.kt` — YouTube/InnerTube client module: SearchSummaryPage.
+- `ytm/src/main/kotlin/com/melodix/ytm/utils/Utils.kt` — Utility: Utils.
+- `ytm/src/main/kotlin/com/melodix/ytm/utils/YouTubeUrlParser.kt` — Utility: YouTubeUrlParser.
+
+## Module :spotify — Spotify GraphQL (7 files)
+
+- `spotify/build.gradle.kts` — Spotify GraphQL module: build.gradle.kts.
+- `spotify/src/main/kotlin/com/melodix/spotify/Spotify.kt` — Spotify GraphQL module: Spotify.
+- `spotify/src/main/kotlin/com/melodix/spotify/SpotifyAuth.kt` — Spotify GraphQL module: SpotifyAuth.
+- `spotify/src/main/kotlin/com/melodix/spotify/SpotifyHashProvider.kt` — Spotify GraphQL module: SpotifyHashProvider.
+- `spotify/src/main/kotlin/com/melodix/spotify/SpotifyMapper.kt` — Spotify GraphQL module: SpotifyMapper.
+- `spotify/src/test/kotlin/com/melodix/spotify/SpotifyMapperMatchScoreTest.kt` — Spotify GraphQL module: SpotifyMapperMatchScoreTest.
+- `spotify/src/test/kotlin/com/melodix/spotify/SpotifyMapperPerformanceTest.kt` — Spotify GraphQL module: SpotifyMapperPerformanceTest.
+
+## Lyrics modules (:kugou :lrclib :betterlyrics :paxsenix) (15 files)
+
+- `betterlyrics/build.gradle.kts` — BetterLyrics syllable-lyrics module: build.gradle.kts.
+- `betterlyrics/src/main/AndroidManifest.xml` — BetterLyrics syllable-lyrics module: AndroidManifest.xml.
+- `betterlyrics/src/main/kotlin/com/melodix/music/betterlyrics/BetterLyrics.kt` — BetterLyrics syllable-lyrics module: BetterLyrics.
+- `betterlyrics/src/main/kotlin/com/melodix/music/betterlyrics/TTMLParser.kt` — BetterLyrics syllable-lyrics module: TTMLParser.
+- `betterlyrics/src/test/kotlin/com/melodix/music/betterlyrics/TTMLParserTest.kt` — BetterLyrics syllable-lyrics module: TTMLParserTest.
+- `kugou/.gitignore` — KuGou lyrics API module: .gitignore.
+- `kugou/build.gradle.kts` — KuGou lyrics API module: build.gradle.kts.
+- `kugou/src/main/AndroidManifest.xml` — KuGou lyrics API module: AndroidManifest.xml.
+- `kugou/src/main/kotlin/com/melodix/kugou/KuGou.kt` — KuGou lyrics API module: KuGou.
+- `lrclib/.gitignore` — LRCLib synced-lyrics API module: .gitignore.
+- `lrclib/build.gradle.kts` — LRCLib synced-lyrics API module: build.gradle.kts.
+- `lrclib/src/main/AndroidManifest.xml` — LRCLib synced-lyrics API module: AndroidManifest.xml.
+- `lrclib/src/main/kotlin/com/melodix/lrclib/LrcLib.kt` — LRCLib synced-lyrics API module: LrcLib.
+- `paxsenix/build.gradle.kts` — Paxsenix lyrics API module: build.gradle.kts.
+- `paxsenix/src/main/kotlin/com/melodix/paxsenix/Paxsenix.kt` — Paxsenix lyrics API module: Paxsenix.
+
+## Modules :lastfm :shazamkit :kizzy (31 files)
+
+- `kizzy/.gitignore` — Kizzy Discord RPC library (vendored): .gitignore.
+- `kizzy/build.gradle.kts` — Kizzy Discord RPC library (vendored): build.gradle.kts.
+- `kizzy/src/main/AndroidManifest.xml` — Kizzy Discord RPC library (vendored): AndroidManifest.xml.
+- `kizzy/src/main/kotlin/com/my/kizzy/gateway/DiscordWebSocket.kt` — Kizzy Discord RPC library (vendored): DiscordWebSocket.
+- `kizzy/src/main/kotlin/com/my/kizzy/gateway/entities/HeartBeat.kt` — Kizzy Discord RPC library (vendored): HeartBeat.
+- `kizzy/src/main/kotlin/com/my/kizzy/gateway/entities/Identify.kt` — Kizzy Discord RPC library (vendored): Identify.
+- `kizzy/src/main/kotlin/com/my/kizzy/gateway/entities/Payload.kt` — Kizzy Discord RPC library (vendored): Payload.
+- `kizzy/src/main/kotlin/com/my/kizzy/gateway/entities/Ready.kt` — Kizzy Discord RPC library (vendored): Ready.
+- `kizzy/src/main/kotlin/com/my/kizzy/gateway/entities/Resume.kt` — Kizzy Discord RPC library (vendored): Resume.
+- `kizzy/src/main/kotlin/com/my/kizzy/gateway/entities/op/OpCode.kt` — Kizzy Discord RPC library (vendored): OpCode.
+- `kizzy/src/main/kotlin/com/my/kizzy/gateway/entities/op/OpCodesSerializer.kt` — Kizzy Discord RPC library (vendored): OpCodesSerializer.
+- `kizzy/src/main/kotlin/com/my/kizzy/gateway/entities/presence/Activity.kt` — Kizzy Discord RPC library (vendored): Activity.
+- `kizzy/src/main/kotlin/com/my/kizzy/gateway/entities/presence/Assets.kt` — Kizzy Discord RPC library (vendored): Assets.
+- `kizzy/src/main/kotlin/com/my/kizzy/gateway/entities/presence/Metadata.kt` — Kizzy Discord RPC library (vendored): Metadata.
+- `kizzy/src/main/kotlin/com/my/kizzy/gateway/entities/presence/Presence.kt` — Kizzy Discord RPC library (vendored): Presence.
+- `kizzy/src/main/kotlin/com/my/kizzy/gateway/entities/presence/Timestamps.kt` — Kizzy Discord RPC library (vendored): Timestamps.
+- `kizzy/src/main/kotlin/com/my/kizzy/rpc/ArtworkCache.kt` — Kizzy Discord RPC library (vendored): ArtworkCache.
+- `kizzy/src/main/kotlin/com/my/kizzy/rpc/ExternalAssets.kt` — Kizzy Discord RPC library (vendored): ExternalAssets.
+- `kizzy/src/main/kotlin/com/my/kizzy/rpc/KizzyRPC.kt` — Kizzy Discord RPC library (vendored): KizzyRPC.
+- `kizzy/src/main/kotlin/com/my/kizzy/rpc/RpcImage.kt` — Kizzy Discord RPC library (vendored): RpcImage.
+- `kizzy/src/main/kotlin/com/my/kizzy/rpc/UserInfo.kt` — Kizzy Discord RPC library (vendored): UserInfo.
+- `kizzy/src/main/kotlin/com/my/kizzy/utils/Ext.kt` — Utility: Ext.
+- `lastfm/.gitignore` — Last.fm scrobbling API module: .gitignore.
+- `lastfm/build.gradle.kts` — Last.fm scrobbling API module: build.gradle.kts.
+- `lastfm/consumer-rules.pro` — Last.fm scrobbling API module: consumer-rules.pro.
+- `lastfm/src/main/AndroidManifest.xml` — Last.fm scrobbling API module: AndroidManifest.xml.
+- `lastfm/src/main/kotlin/com/melodix/lastfm/LastFM.kt` — Last.fm scrobbling API module: LastFM.
+- `lastfm/src/test/kotlin/com/melodix/lastfm/LastFMResponseTest.kt` — Last.fm scrobbling API module: LastFMResponseTest.
+- `shazamkit/build.gradle.kts` — Shazam-style recognition module: build.gradle.kts.
+- `shazamkit/src/main/AndroidManifest.xml` — Shazam-style recognition module: AndroidManifest.xml.
+- `shazamkit/src/main/kotlin/com/melodix/shazamkit/Shazam.kt` — Shazam-style recognition module: Shazam.
+
+## Fastlane store metadata (64 files)
+
+- `fastlane/metadata/android/ar/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/ar/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/az-AZ/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/az-AZ/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/bg/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/bg/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/ca/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/ca/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/cs-CZ/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/cs-CZ/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/de-DE/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/de-DE/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/en-US/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/en-US/images/belberi_github.png` — Store graphic (belberi_github.png).
+- `fastlane/metadata/android/en-US/images/featureGraphic.png` — Store graphic (featureGraphic.png).
+- `fastlane/metadata/android/en-US/images/icon.png` — Store graphic (icon.png).
+- `fastlane/metadata/android/en-US/images/screenshots/screenshot_1.png` — Store graphic (screenshot_1.png).
+- `fastlane/metadata/android/en-US/images/screenshots/screenshot_2.png` — Store graphic (screenshot_2.png).
+- `fastlane/metadata/android/en-US/images/screenshots/screenshot_3.png` — Store graphic (screenshot_3.png).
+- `fastlane/metadata/android/en-US/images/screenshots/screenshot_4.png` — Store graphic (screenshot_4.png).
+- `fastlane/metadata/android/en-US/images/screenshots/screenshot_5.png` — Store graphic (screenshot_5.png).
+- `fastlane/metadata/android/en-US/images/screenshots/screenshot_6.png` — Store graphic (screenshot_6.png).
+- `fastlane/metadata/android/en-US/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/en-US/title.txt` — Store listing text (title.txt).
+- `fastlane/metadata/android/es/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/es/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/et/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/et/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/eu-ES/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/eu-ES/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/fil/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/fil/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/fr-FR/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/fr-FR/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/id/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/id/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/it/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/it/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/it/title.txt` — Store listing text (title.txt).
+- `fastlane/metadata/android/ko-KR/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/ko-KR/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/lt/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/lt/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/mfe/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/mfe/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/pt-BR/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/pt-BR/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/pt/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/pt/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/ro/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/ro/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/ru-RU/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/ru-RU/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/ru-RU/title.txt` — Store listing text (title.txt).
+- `fastlane/metadata/android/sk/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/sk/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/sl/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/sl/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/te-IN/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/te-IN/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/tr/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/tr/short_description.txt` — Store listing text (short_description.txt).
+- `fastlane/metadata/android/uk-UA/full_description.txt` — Store listing text (full_description.txt).
+- `fastlane/metadata/android/uk-UA/short_description.txt` — Store listing text (short_description.txt).
+
+## Docs & registry (2 files)
+
+- `docs/index.html` — Docs asset: index.html (hash registry / pages).
+- `docs/spotify-gql-hashes.json` — Docs asset: spotify-gql-hashes.json (hash registry / pages).
+
+## Other (19)
+
+- `.dockerignore` — Project file: .dockerignore.
+- `.gitignore` — Project file: .gitignore.
+- `CHECKLIST.md` — Project file: CHECKLIST.md.
+- `STRUCTURE.md` — Project file: STRUCTURE.md.
+- `app/src/main/kotlin/com/melodix/dpi/ActivityLifecycleManager.kt` — Kotlin source: ActivityLifecycleManager.kt.
+- `app/src/main/kotlin/com/melodix/dpi/BaseLifecycleContentProvider.kt` — Kotlin source: BaseLifecycleContentProvider.kt.
+- `app/src/main/kotlin/com/melodix/dpi/DensityConfiguration.kt` — Kotlin source: DensityConfiguration.kt.
+- `app/src/main/kotlin/com/melodix/dpi/DensityScaler.kt` — Kotlin source: DensityScaler.kt.
+- `app/src/main/kotlin/com/melodix/music/ui/dialog/QobuzMatchOverrideDialog.kt` — Kotlin source: QobuzMatchOverrideDialog.kt.
+- `app/src/main/res/resources.properties` — Project file: resources.properties.
+- `app/src/main/res/xml-v31/music_widget_info.xml` — XML resource/config: music_widget_info.xml.
+- `app/src/main/res/xml-v31/recognizer_widget_info.xml` — XML resource/config: recognizer_widget_info.xml.
+- `app/src/main/res/xml-v31/turntable_widget_info.xml` — XML resource/config: turntable_widget_info.xml.
+- `assets/XMR.png` — Project file: XMR.png.
+- `assets/buymeacoffee.png` — Project file: buymeacoffee.png.
+- `assets/ic_launcher-playstore.png` — Project file: ic_launcher-playstore.png.
+- `gradle.properties` — Project file: gradle.properties.
+- `gradle/gradle-daemon-jvm.properties` — Project file: gradle-daemon-jvm.properties.
+- `simpmusic/build.gradle.kts` — Project file: build.gradle.kts.

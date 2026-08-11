@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tagline">すべての音を感じて</string>
+    <string name="haptic_feedback">ハプティックフィードバック</string>
+    <string name="haptic_feedback_desc">タップ・トグル・ジェスチャーに微細な振動</string>
+    <string name="liquid_glass_nav">リキッドグラスナビ</string>
+    <string name="liquid_glass_nav_desc">ぼかし付きの半透明ナビゲーションバー</string>
+    <string name="search_settings">設定を検索</string>
+    <string name="recently_changed">最近の変更</string>
+    <string name="copy_theme_preset">テーマプリセットをコピー</string>
+    <string name="apply_theme_preset">テーマプリセットを適用</string>
+    <string name="preset_applied">テーマプリセットを適用しました</string>
+    <string name="local_folders">音楽フォルダー</string>
+    <string name="local_folders_desc">選択したフォルダーのみスキャン。空欄＝すべて。</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tagline">Fühle jede Note</string>
+    <string name="haptic_feedback">Haptisches Feedback</string>
+    <string name="haptic_feedback_desc">Subtile Vibrationen bei Tipps, Schaltern und Gesten</string>
+    <string name="liquid_glass_nav">Liquid-Glass-Navigation</string>
+    <string name="liquid_glass_nav_desc">Transluzente Navigationsleiste mit Unschärfe</string>
+    <string name="search_settings">Einstellungen durchsuchen</string>
+    <string name="recently_changed">Zuletzt geändert</string>
+    <string name="copy_theme_preset">Theme-Voreinstellung kopieren</string>
+    <string name="apply_theme_preset">Theme-Voreinstellung anwenden</string>
+    <string name="preset_applied">Theme-Voreinstellung angewendet</string>
+    <string name="local_folders">Musikordner</string>
+    <string name="local_folders_desc">Nur ausgewählte Ordner scannen. Leer = alle Ordner.</string>
+</resources>

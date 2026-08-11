@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tagline">اشعر بكل نغمة</string>
+    <string name="haptic_feedback">استجابة لمسية</string>
+    <string name="haptic_feedback_desc">اهتزازات خفيفة عند النقر والتبديل والإيماءات</string>
+    <string name="liquid_glass_nav">تنقّل الزجاج السائل</string>
+    <string name="liquid_glass_nav_desc">شريط تنقّل شبه شفاف مع تأثير ضبابي</string>
+    <string name="search_settings">البحث في الإعدادات</string>
+    <string name="recently_changed">تغيّر مؤخرًا</string>
+    <string name="copy_theme_preset">نسخ إعدادات السمة</string>
+    <string name="apply_theme_preset">تطبيق إعدادات السمة</string>
+    <string name="preset_applied">تم تطبيق إعدادات السمة</string>
+    <string name="local_folders">مجلدات الموسيقى</string>
+    <string name="local_folders_desc">مسح المجلدات المحددة فقط. فارغ = كل المجلدات.</string>
+</resources>

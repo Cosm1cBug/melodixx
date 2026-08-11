@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tagline">Почувствуй каждую ноту</string>
+    <string name="haptic_feedback">Виброотклик</string>
+    <string name="haptic_feedback_desc">Лёгкая вибрация при нажатиях, переключателях и жестах</string>
+    <string name="liquid_glass_nav">Навигация «жидкое стекло»</string>
+    <string name="liquid_glass_nav_desc">Полупрозрачная размытая панель навигации</string>
+    <string name="search_settings">Поиск в настройках</string>
+    <string name="recently_changed">Недавно изменённые</string>
+    <string name="copy_theme_preset">Скопировать пресет темы</string>
+    <string name="apply_theme_preset">Применить пресет темы</string>
+    <string name="preset_applied">Пресет темы применён</string>
+    <string name="local_folders">Папки с музыкой</string>
+    <string name="local_folders_desc">Сканировать только выбранные папки. Пусто = все папки.</string>
+</resources>

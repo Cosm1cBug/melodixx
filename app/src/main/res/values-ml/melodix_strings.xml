@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tagline">ഓരോ സ്വരവും അനുഭവിക്കൂ</string>
+    <string name="haptic_feedback">ഹാപ്റ്റിക് ഫീഡ്ബാക്ക്</string>
+    <string name="haptic_feedback_desc">ടാപ്പുകൾ, ടോഗിളുകൾ, ജെസ്ചറുകൾ എന്നിവയ്ക്ക് നേരിയ വിറയൽ</string>
+    <string name="liquid_glass_nav">ലിക്വിഡ് ഗ്ലാസ് നാവിഗേഷൻ</string>
+    <string name="liquid_glass_nav_desc">ബ്ലർ ചെയ്ത സുതാര്യ നാവിഗേഷൻ ബാർ</string>
+    <string name="search_settings">ക്രമീകരണങ്ങൾ തിരയുക</string>
+    <string name="recently_changed">സമീപകാലത്ത് മാറ്റിയവ</string>
+    <string name="copy_theme_preset">തീം പ്രീസെറ്റ് പകർത്തുക</string>
+    <string name="apply_theme_preset">തീം പ്രീസെറ്റ് പ്രയോഗിക്കുക</string>
+    <string name="preset_applied">തീം പ്രീസെറ്റ് പ്രയോഗിച്ചു</string>
+    <string name="local_folders">സംഗീത ഫോൾഡറുകൾ</string>
+    <string name="local_folders_desc">തിരഞ്ഞെടുത്ത ഫോൾഡറുകൾ മാത്രം സ്കാൻ ചെയ്യുക. ശൂന്യം = എല്ലാം.</string>
+</resources>

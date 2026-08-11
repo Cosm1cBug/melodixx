@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_tagline">感受每一个音符</string>
+    <string name="haptic_feedback">触觉反馈</string>
+    <string name="haptic_feedback_desc">点按、开关和手势的细微振动</string>
+    <string name="liquid_glass_nav">液态玻璃导航</string>
+    <string name="liquid_glass_nav_desc">半透明模糊导航栏</string>
+    <string name="search_settings">搜索设置</string>
+    <string name="recently_changed">最近更改</string>
+    <string name="copy_theme_preset">复制主题预设</string>
+    <string name="apply_theme_preset">应用主题预设</string>
+    <string name="preset_applied">主题预设已应用</string>
+    <string name="local_folders">音乐文件夹</string>
+    <string name="local_folders_desc">仅扫描所选文件夹。留空 = 全部文件夹。</string>
+</resources>

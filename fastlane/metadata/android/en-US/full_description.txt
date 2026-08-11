@@ -1,0 +1,14 @@
+Melodix — Feel Every Note.
+
+A minimal, dark-first Material 3 YouTube Music client with vibrant accent colors.
+
+• Ad-free background playback and offline downloads
+• Spotify library, search and recommendations (no Premium required)
+• Experimental lossless streaming (FLAC / Hi-Res) with silent fallback
+• Synced, word-by-word lyrics from multiple providers
+• Listen Together, music recognition, equalizer, crossfade, sleep timer
+• Dynamic theming with a vibrant violet/cyan palette
+• Widgets, Android Auto, Discord RPC, scrobbling, podcasts
+
+Melodix is free software (GPL-3.0). It is not affiliated with YouTube, Google,
+Spotify or Qobuz.
